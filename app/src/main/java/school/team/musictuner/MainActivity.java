@@ -3,7 +3,7 @@ package school.team.musictuner;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-
+//James Hall First Change
 public class MainActivity extends AppCompatActivity {
 
     @Override
