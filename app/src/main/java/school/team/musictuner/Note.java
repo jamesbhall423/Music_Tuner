@@ -6,36 +6,39 @@ public class Note implements Comparable<Note> {
     final String name;
     final TuneSet tuneSet;
 
-    public Note (double frequency, Tune tune)
+    public Note (double frequency, String name, TuneSet tuneSet)
     {
         this.frequency = frequency;
+        this.name=name;
+        this.tuneSet=tuneSet;
     }
 
-    int compareTo(Note other) {
-
+    public int compareTo(Note other) {
+        return 0;
     }
 
-    static Note getNote(double frequency, Tune) {
-        return new Note(frequency, Tune);
+    //Design Plan had an error. These are the proper arguments for the method name.
+    public static Note getNote(double frequency, TuneSet tuneSet) {
+        return tuneSet.getNote(frequency);
     }
 
-    boolean isSharp() {
+    public boolean isSharp() {
         return false;
     }
 
-    boolean isFlat() {
+    public boolean isFlat() {
         return false;
     }
 
-    char halfStep() {
+    public char halfStep() {
         return 'b';
     } //flat b, or sharp #
 
-    char letter() { //capitalized
-return 'C';
+    public char letter() { //capitalized
+        return 'C';
     }
 
-    int octave() {
+    public int octave() {
         return 0;
     }
 
