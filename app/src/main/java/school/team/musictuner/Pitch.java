@@ -3,7 +3,6 @@ package school.team.musictuner;
 public class Pitch implements Comparable<Pitch> {
 
     private double frequency, amplitude;
-    private Note note;
     double getFrequency() {
         return frequency;
     }
@@ -16,8 +15,8 @@ public class Pitch implements Comparable<Pitch> {
     void setAmplitude(double amplitude) {
         this.amplitude = amplitude;
     }
-    Note getNote() {
-        return  note;
+    Note getNote(TuneSet tuneSet) {
+        return  tuneSet.getNote(frequency);
     }
     void tuneNote() {
 
