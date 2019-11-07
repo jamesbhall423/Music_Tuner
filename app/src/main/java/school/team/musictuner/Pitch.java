@@ -25,6 +25,9 @@ public class Pitch implements Comparable<Pitch> {
 
     @Override
     public int compareTo(Pitch o) {
-        return 0;
+        if (this.frequency == o.frequency)
+            return 0;
+        else
+            return 1;
     }
 }

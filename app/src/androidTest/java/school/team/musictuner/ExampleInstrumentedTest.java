@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -23,5 +24,17 @@ public class ExampleInstrumentedTest {
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
         assertEquals("school.team.musictuner", appContext.getPackageName());
+        assertEquals(4, 2+2);
+    }
+
+    @Test
+    public void testPitchCompareTo() {
+        Pitch pitch1 = new Pitch();
+        Pitch pitch2 = new Pitch();
+        
+        pitch1.setFrequency(10);
+        pitch2.setFrequency(10);
+
+        assertEquals(0, pitch1.compareTo(pitch2));
     }
 }
