@@ -3,20 +3,21 @@ package school.team.musictuner;
 public class Note implements Comparable<Note> {
 
     final double frequency;
-    final String name;
-    final TuneSet tuneSet;
+    final String name =  "note";
+    final TuneSet tuneSet = new TuneSet();
 
     public Note (double frequency, Tune tune)
     {
         this.frequency = frequency;
     }
 
-    int compareTo(Note other) {
+    public int compareTo(Note other) {
+        return 0;
 
     }
 
-    static Note getNote(double frequency, Tune) {
-        return new Note(frequency, Tune);
+    public static Note getNote(double frequency, Tune tune) {
+        return new Note(frequency, tune);
     }
 
     boolean isSharp() {
