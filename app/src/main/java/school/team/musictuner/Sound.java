@@ -2,40 +2,40 @@ package school.team.musictuner;
 
 public class Sound {
 private int length;
-    Sound(double samplesPerSecond, int length) {
+    public Sound(double samplesPerSecond, int length) {
 
     }
-    Sound(double time) { //listens to sound audio for the given number of seconds
+    public Sound(double time) { //listens to sound audio for the given number of seconds
 
     }
-    Sound(String file) { //retrieves sound from the given file - throws IOException
+    public Sound(String file) { //retrieves sound from the given file - throws IOException
 
     }
-    static Object startRecording(double maxTime) { //starts listening to audio input – maxTime = seconds
+    public static Object startRecording(double maxTime) { //starts listening to audio input – maxTime = seconds
 
         return null;
     }
-    static Sound endRecording(Object key) {//retrieves the Sound recorded
+    public static Sound endRecording(Object key) {//retrieves the Sound recorded
 
         return null;
     }
 
-    double getDataAt(int point) {
+    public double getDataAt(int point) {
         return 0.0;
     }
-    void setDataAt(int point, double value) { //should only be called when building the sound
+    public void setDataAt(int point, double value) { //should only be called when building the sound
 
     }
-    double samplesPerSecond() {
+    public double samplesPerSecond() {
         return 0.0;
     }
-    Sound getCompressedSound(double samplesPerSecond) {
+    public Sound getCompressedSound(double samplesPerSecond) {
         return null;
     }
-    int length() {
+    public int length() {
         return length;
     }
-    Sound getSound(int on, int off) {
+    public Sound getSound(int on, int off) {
         return null;
     }
 
