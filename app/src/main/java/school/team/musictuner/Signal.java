@@ -1,14 +1,17 @@
 package school.team.musictuner;
 
+import java.util.SortedSet;
+import java.util.TreeSet;
+
 import static java.sql.Types.NULL;
 
 public class Signal {
-    public Pitch pitch;
+    public SortedSet<Pitch> frequencies;
     public int getFundamentalFrequency() {
         return 0;
     }
-    Signal() {
-        pitch = new Pitch();
+    public Signal() {
+        frequencies = new TreeSet<Pitch>();
     }
     public void tuneNotes() {
     }
