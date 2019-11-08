@@ -2,19 +2,12 @@ package school.team.musictuner;
 
 import java.util.List;
 
-public class AdvancedDisplay {
+public interface AdvancedDisplay {
 
-    public AdvancedDisplay(AdvancedController advancedController) {
+    void showStatus(String status);
 
-    }
-    void showStatus(String status) {
+    void runOnUIThread(Runnable runnable);
 
-    }
-    void runOnUIThread(Runnable runnable) {
-
-    }
-    void displaySections(List<PlayedSection> sections) {
-
-    }
+    void displaySections(List<PlayedSection> sections);
 
 }
