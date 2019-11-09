@@ -1,5 +1,5 @@
 package school.team.musictuner;
-/*
+/**
 * Represents a frequency in the sound audio.
  */
 public class Pitch implements Comparable<Pitch> {
@@ -17,13 +17,13 @@ public class Pitch implements Comparable<Pitch> {
     public void setAmplitude(double amplitude) {
         this.amplitude = amplitude;
     }
-    /*
+    /**
     * returns the Note closest in frequency to this pitch.
      */
     public Note getNote(TuneSet tuneSet) {
         return  tuneSet.getNote(frequency);
     }
-    /*
+    /**
     * tunes the frequency to the nearest Note (as in Note class)
      */
     public void tuneNote() {
@@ -31,7 +31,7 @@ public class Pitch implements Comparable<Pitch> {
     }
 
 
-    /*
+    /**
     * compare frequency <, ==, > o.frequency;
      */
     @Override
