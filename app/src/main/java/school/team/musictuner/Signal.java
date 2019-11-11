@@ -10,9 +10,6 @@ public class Signal {
         return 0;
     }
     public SortedSet<Pitch> frequencies;
-    public int getFundamentalFrequency() {
-        return 0;
-    }
     public Signal() {
         frequencies = new TreeSet<Pitch>();
     }
