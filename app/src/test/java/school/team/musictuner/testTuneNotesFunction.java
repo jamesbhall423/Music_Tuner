@@ -8,6 +8,8 @@ public class testTuneNotesFunction {
     @Test
     public void testForTuneNotesFunction() {
         Signal test = new Signal();
+    }
+    public void testSignal(Signal test) {
         double old = var(test);
         test.tuneNotes();
         double tuned = var(test);
