@@ -76,5 +76,19 @@ public class AdvancedController {
     void setBeats(int section, int beats) {
 
     }
+    /**
+     * Load up an activity to set the settings.
+     */
+    void settingsDisplay() {
+
+    }
+    /**
+     * Stretch -
+     * Load an activity to train the Tuner to an instrument
+     *
+     */
+    void trainingDisplay() {
+
+    }
 
 }
