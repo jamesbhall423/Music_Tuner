@@ -16,6 +16,12 @@ public class testTuneNotesFunction {
         assert (tuned < old);
     }
     private double var(Signal signal) {
-        return 0.0;
+        double fundamental = signal.getFundamentalFrequency();
+        double out = 0.0;
+        for (Pitch pitch: signal.frequencies) {
+            double mod = pitch.getFrequency() % fundamental;
+            out += mod*(fundamental-mod);
+        }
+        return out;
     }
 }
