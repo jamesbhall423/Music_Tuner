@@ -3,7 +3,7 @@ package school.team.musictuner;
 * This class represents various settings under the users control.
  */
 public class Settings {
-    private static String NAME = "TunerSettings";
+    public static final String NAME = "TunerSettings";
     private double sensitivity;
     private boolean removeOvertones;
     private TuneSet tuneSet;
