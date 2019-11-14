@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.gson.Gson;
 
@@ -27,6 +28,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         SharedPreferences sharedPreferences = this.getSharedPreferences()
         settings = gson.fromJson();
+    }
+    @Override
+    protected void onPause() {
+        Log.d("Author", "Main Pause");
+        super.onPause();
+    }
+    @Override
+    protected void onStop() {
+        Log.d("Author", "Main Stop");
+        super.onStop();
+    }
+    @Override
+    protected void onDestroy() {
+        Log.d("Author", "Main Destroy");
+        super.onDestroy();
     }
 }
 

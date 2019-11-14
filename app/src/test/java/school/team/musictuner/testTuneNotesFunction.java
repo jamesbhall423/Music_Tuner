@@ -8,10 +8,20 @@ public class testTuneNotesFunction {
     @Test
     public void testForTuneNotesFunction() {
         Signal test = new Signal();
-        Pitch perfect = new Pitch();
-        double old = abs(perfect.getFrequency() - test.getFundamentalFrequency());
+    }
+    public void testSignal(Signal test) {
+        double old = var(test);
         test.tuneNotes();
-        double tuned = abs(perfect.getFrequency() - test.getFundamentalFrequency());
+        double tuned = var(test);
         assert (tuned < old);
+    }
+    private double var(Signal signal) {
+        double fundamental = signal.getFundamentalFrequency();
+        double out = 0.0;
+        for (Pitch pitch: signal.frequencies) {
+            double mod = pitch.getFrequency() % fundamental;
+            out += mod*(fundamental-mod);
+        }
+        return out;
     }
 }
