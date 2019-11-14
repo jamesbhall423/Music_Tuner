@@ -8,50 +8,50 @@ public class AdvancedController {
     /**
     * Creates an AdvancedController
      */
-    AdvancedController(Converter converter) {
+    public AdvancedController(Converter converter) {
 
     }
     /**
     * Sets the display to the given instance
      */
-    void setDisplay(AdvancedDisplay display) {
+    public void setDisplay(AdvancedDisplay display) {
 
     }
     /**
     * load sound data that was previously recorded by this program.
      */
-    void load(String file) {
+    public void load(String file) {
 
     }
     /**
     * save sound data in this instance
      */
-    void save(String file) {
+    public void save(String file) {
 
     }
     /**
     * read and process the given audio file
      */
-    void read(String file) {
+    public void read(String file) {
 
     }
     /**
     * Starts a recording of audio input.
      */
-    void startRecording() {
+    public void startRecording() {
 
     }
     /**
     * Ends and processes the recording of audio input.
      */
-    void endRecording() {
+    public void endRecording() {
 
     }
     /**
     * Ends any listening / reading activities or background threads that may be running -
     * Frees all resources used by this controller.
      */
-    void destroy() {
+    public void destroy() {
 
     }
     /**
@@ -64,7 +64,7 @@ public class AdvancedController {
     * ABC G C DBC
     *
      */
-    void divide(int section, double timeInSection) {
+    public void divide(int section, double timeInSection) {
 
     }
     /**
@@ -73,13 +73,13 @@ public class AdvancedController {
     *  by varying the number of beats per second.
     *
      */
-    void setBeats(int section, int beats) {
+    public void setBeats(int section, int beats) {
 
     }
     /**
      * Load up an activity to set the settings.
      */
-    void settingsDisplay() {
+    public void settingsDisplay() {
 
     }
     /**
@@ -87,7 +87,7 @@ public class AdvancedController {
      * Load an activity to train the Tuner to an instrument
      *
      */
-    void trainingDisplay() {
+    public void trainingDisplay() {
 
     }
 

@@ -11,12 +11,12 @@ public class TuneSet {
     /**
     * The tune set that represent standard tuning.
      */
-    static final TuneSet STANDARD = null;
+    public static final TuneSet STANDARD = null;
 
     /**
     * Returns an array representing all possible tuneSets.
      */
-    static TuneSet[] allTuneSets() {
+    public static TuneSet[] allTuneSets() {
         TuneSet[] out = {STANDARD};
         return out;
     }

@@ -11,13 +11,13 @@ public interface AdvancedDisplay {
     * Display the controllers current status:
     *  for instance, whether it is listening for input, reading a file, or processing data.
      */
-    void showStatus(String status);
+    public void showStatus(String status);
 
-    void runOnUIThread(Runnable runnable);
+    public void runOnUIThread(Runnable runnable);
 
     /**
     * Displays the given sections (each note) to the user.
      */
-    void displaySections(List<PlayedSection> sections);
+    public void displaySections(List<PlayedSection> sections);
 
 }

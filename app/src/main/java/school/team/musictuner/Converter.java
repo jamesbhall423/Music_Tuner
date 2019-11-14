@@ -50,7 +50,7 @@ public class Converter {
     public PlayedSection section(Timeline timeline) {
         return null;
     }
-    void setTuner(Tuner tuner) {
+    public void setTuner(Tuner tuner) {
         this.tuner = tuner;
     }
 
