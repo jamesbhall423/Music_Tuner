@@ -30,7 +30,7 @@ public class Converter {
      * @return
      */
     public Signal getSignal(Sound sound) {
-        return new Signal();
+        return getSignal(sound,0,sound.length());
     }
 
     /**
