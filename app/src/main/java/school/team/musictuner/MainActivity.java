@@ -2,6 +2,7 @@ package school.team.musictuner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,8 +27,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         gson = new Gson();
         setContentView(R.layout.activity_main);
-        SharedPreferences sharedPreferences = this.getSharedPreferences()
-        settings = gson.fromJson();
+        SharedPreferences sharedPref = this.getSharedPreferences(Settings.NAME, Context.MODE_PRIVATE);
+        settings = gson.fromJson(sharedPref.getString(Settings.NAME, ""), Settings.class);
     }
     @Override
     protected void onPause() {
