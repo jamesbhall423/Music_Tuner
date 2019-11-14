@@ -19,8 +19,8 @@ public class Note implements Comparable<Note> {
     public Note (double frequency, String name, TuneSet tuneSet)
     {
         this.frequency = frequency;
-        this.name=name;
-        this.tuneSet=tuneSet;
+        this.name = name;
+        this.tuneSet = tuneSet;
     }
 
     /**
