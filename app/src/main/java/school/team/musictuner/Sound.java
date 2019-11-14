@@ -1,6 +1,14 @@
 package school.team.musictuner;
 
+import android.media.MediaCodec;
+import android.media.MediaExtractor;
+import android.media.MediaFormat;
+import android.util.Log;
+
+import java.io.File;
+import java.io.FileDescriptor;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 
 /**
 * Represents raw sound data.
@@ -8,6 +16,10 @@ import java.io.IOException;
  */
 public class Sound {
 private int length;
+private int mSampleRate;
+private MediaCodec mediaCodec;
+private MediaExtractor mediaExtractor;
+
     public Sound(double samplesPerSecond, int length) {
 
     }
@@ -21,8 +33,29 @@ private int length;
     * Retrieves sound from the given audio file.
      */
     public Sound(String file) throws IOException {
+        mediaExtractor = new MediaExtractor();
 
+        mediaExtractor.setDataSource(file);
+
+        int channel = 0;
+        for (int i = 0; i < mediaExtractor.getTrackCount(); i++) {
+            MediaFormat format = mediaExtractor.getTrackFormat(i);
+            String mime = format.getString(MediaFormat.KEY_MIME);
+            if (mime.startsWith("audio/")) {
+                mediaExtractor.selectTrack(i);
+                Log.d("SOUND_TAG", "format : " + format);
+                ByteBuffer csd = format.getByteBuffer("csd-0");
+
+                for (int k = 0; k < csd.capacity(); ++k) {
+                    Log.e("SOUND_TAG", "csd : " + csd.array()[k]);
+                }
+                //mSampleRate = format.getInteger(MediaFormat.KEY_SAMPLE_RATE);
+                //channel = format.getInteger(MediaFormat.KEY_CHANNEL_COUNT);
+                break;
+            }
+        }
     }
+
     /**
     * Starts listening to audio input
     * will listen for at most maxTime seconds.
@@ -53,7 +86,7 @@ private int length;
 
     }
     public double samplesPerSecond() {
-        return 0.0;
+        return mSampleRate;
     }
     /**
     * return a Sound object that covers the same interval in time, but with a fewer number of samples.
