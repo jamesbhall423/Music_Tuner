@@ -10,6 +10,7 @@ import static java.sql.Types.NULL;
 * Represent a list of frequencies that are present at a particular point in time.
  */
 public class Signal implements Cloneable, Serializable {
+    private static final long SerialVersionUID = 1L;
     /**
     * returns the fundamental frequency of the pitches
     * i. e. the fundamental frequency of

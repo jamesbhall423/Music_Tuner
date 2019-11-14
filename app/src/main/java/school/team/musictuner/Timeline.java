@@ -3,6 +3,7 @@ package school.team.musictuner;
 import java.io.Serializable;
 
 public class Timeline implements Cloneable, Serializable {
+    private static final long SerialVersionUID = 1L;
     private int length, on, off, moment;
     private double momentsPerSecond;
     private Signal signal;

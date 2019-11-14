@@ -6,6 +6,7 @@ import java.io.Serializable;
 * Represents a frequency in the sound audio.
  */
 public class Pitch implements Comparable<Pitch>, Cloneable, Serializable {
+    private static final long SerialVersionUID = 1L;
 
     private double frequency, amplitude;
     public double getFrequency() {

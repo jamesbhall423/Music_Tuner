@@ -6,6 +6,7 @@ import java.io.Serializable;
 * Represents a note on a musical scale, such as C# and Eb
  */
 public class Note implements Comparable<Note>, Cloneable, Serializable {
+    private static final long SerialVersionUID = 1L;
     /**
     * The frequency of the note
      */

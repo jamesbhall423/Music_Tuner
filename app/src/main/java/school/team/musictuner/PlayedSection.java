@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.SortedSet;
 
 public class PlayedSection implements Cloneable, Serializable {
+    private static final long SerialVersionUID = 1L;
     private SortedSet<PlayedNote> notes;
     private int beats;
     private double beatsPerSecond;

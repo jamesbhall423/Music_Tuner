@@ -16,6 +16,7 @@ import java.nio.ByteBuffer;
 * Essentially air pressure values at different points in time.
  */
 public class Sound implements Cloneable, Serializable {
+    private static final long SerialVersionUID = 1L;
 private int length;
 private int mSampleRate;
 private MediaCodec mediaCodec;

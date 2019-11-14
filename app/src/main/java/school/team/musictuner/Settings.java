@@ -6,6 +6,7 @@ import java.io.Serializable;
 * This class represents various settings under the users control.
  */
 public class Settings implements Cloneable, Serializable {
+    private static final long SerialVersionUID = 1L;
     public static final String NAME = "TunerSettings";
     private double sensitivity;
     private boolean removeOvertones;

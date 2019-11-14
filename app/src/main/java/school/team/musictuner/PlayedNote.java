@@ -3,6 +3,7 @@ package school.team.musictuner;
 import java.io.Serializable;
 
 public class PlayedNote implements Comparable<PlayedNote>, Cloneable, Serializable {
+    private static final long SerialVersionUID = 1L;
 
     private Pitch pitch;
     private int start, end;
