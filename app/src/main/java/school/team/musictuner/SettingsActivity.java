@@ -15,7 +15,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void storeSettings(Settings settings){
-        SharedPreferences mPrefs = getPreferences(MODE_PRIVATE);
+        SharedPreferences mPrefs = getSharedPreferences(Settings.NAME,MODE_PRIVATE);
         Gson gson = new Gson();
         String json = gson.toJson(settings);
         SharedPreferences.Editor prefsEditor = mPrefs.edit();
