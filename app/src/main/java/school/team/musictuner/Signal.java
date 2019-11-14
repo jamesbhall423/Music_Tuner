@@ -1,5 +1,6 @@
 package school.team.musictuner;
 
+import java.util.Iterator;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -32,5 +33,10 @@ public class Signal {
     * 100 hz, 200 hz, 500 hz, 700 hz.
      */
     public void tuneNotes() {
+        Iterator<Pitch> it = frequencies.iterator();
+        double Tuner = getFundamentalFrequency();
+        while (it.hasNext()) {
+            Pitch current = (Pitch) it;
+        }
     }
 }
