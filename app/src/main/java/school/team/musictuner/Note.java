@@ -9,15 +9,15 @@ public class Note implements Comparable<Note>, Cloneable, Serializable {
     /**
     * The frequency of the note
      */
-    final double frequency;
+    public final double frequency;
     /**
     * The name of the note
      */
-    final String name;
+    public final String name;
     /**
     * the tuning scheme the note belongs to
      */
-    final TuneSet tuneSet;
+    public final TuneSet tuneSet;
 
     public Note (double frequency, String name, TuneSet tuneSet)
     {

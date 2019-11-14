@@ -7,21 +7,21 @@ public class Timeline implements Cloneable, Serializable {
     private double momentsPerSecond;
     private Signal signal;
 
-    Timeline(int length, double momentsPerSecond) {
+    public Timeline(int length, double momentsPerSecond) {
         this.length = length;
         this.momentsPerSecond = momentsPerSecond;
     }
-    Timeline(Timeline base, double momentsPerSecond) {
+    public Timeline(Timeline base, double momentsPerSecond) {
         this.momentsPerSecond = momentsPerSecond;
     }
-    Timeline(Timeline base, int on, int off) {
+    public Timeline(Timeline base, int on, int off) {
         this.on = on;
         this.off = off;
     }
-    Signal getMoment(int moment) {
+    public Signal getMoment(int moment) {
         return signal;
     }
-    void setMoment(int moment, Signal signal) {
+    public void setMoment(int moment, Signal signal) {
         this.moment = moment;
     }
     public int length() {

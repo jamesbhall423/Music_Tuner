@@ -8,7 +8,7 @@ public class PlayedSection implements Cloneable, Serializable {
     private int beats;
     private double beatsPerSecond;
     private TuneSet tuneSet;
-    PlayedSection(int beats, double beatsPerSecond) {
+    public PlayedSection(int beats, double beatsPerSecond) {
 
     }
 

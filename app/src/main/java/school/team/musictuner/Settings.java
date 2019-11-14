@@ -22,16 +22,16 @@ public class Settings implements Cloneable, Serializable {
     public double getSensitivity() {
         return sensitivity;
     }
-    void setRemoveOvertones(boolean removeOvertones) {
+    public void setRemoveOvertones(boolean removeOvertones) {
         this.removeOvertones = removeOvertones;
     }
-    boolean getRemoveOvertones() {
+    public boolean getRemoveOvertones() {
         return removeOvertones;
     }
-    TuneSet getTuneSet() {
+    public TuneSet getTuneSet() {
         return tuneSet;
     }
-    void setTuneSet(TuneSet tuneSet) {
+    public void setTuneSet(TuneSet tuneSet) {
         this.tuneSet = tuneSet;
     }
 

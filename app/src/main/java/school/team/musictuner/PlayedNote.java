@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class PlayedNote implements Comparable<PlayedNote>, Cloneable, Serializable {
 
-    Pitch pitch;
+    private Pitch pitch;
     private int start, end;
     public void setPitch(Pitch pitch) {
         this.pitch = pitch;
@@ -18,7 +18,7 @@ public class PlayedNote implements Comparable<PlayedNote>, Cloneable, Serializab
     public int end() {
         return 0;
     }
-    void setTimeFrame(int start, int end) {
+    public void setTimeFrame(int start, int end) {
         this.start = start;
         this.end = end;
     }
