@@ -71,21 +71,21 @@ public class Note implements Comparable<Note>, Cloneable, Serializable {
     * or [blank] natural.
      */
     public char halfStep() {
-        return 'b';
+        return halfStep;
     } //flat b, or sharp #
 
     /**
     * returns the capitalized letter name of the note
      */
     public char letter() { //capitalized
-        return 'C';
+        return letter;
     }
 
     /**
     * returns the note's octave - C4 = middle C
      */
     public int octave() {
-        return 0;
+        return octave;
     }
 
 
@@ -124,7 +124,7 @@ public class Note implements Comparable<Note>, Cloneable, Serializable {
      */
     @Override
     public String toString() {
-        return super.toString();
+        return name;
     }
 
 }

@@ -20,8 +20,8 @@ public abstract class TuneSet {
         public Note getNote(double frequency) {
             double logDif = 12*Math.log(frequency/STANDARD_MIDDLE_C_FREQUENCY)/Math.log(2);
             logDif = Math.round(logDif);
-            int octave = 4+(int) (logDif/12);
-            int halfSteps = (int)logDif%12;
+            int octave = 4+(int) Math.floor(logDif/12);
+            int halfSteps = ((int)logDif)-12*(octave-4);
             char letter;
             char sharp = ' ';
             switch (halfSteps) {
@@ -67,7 +67,7 @@ public abstract class TuneSet {
                     letter = 'B';
                     break;
                 default:
-                    throw new Error();
+                    throw new Error(halfSteps+" "+octave+" "+logDif);
             }
             String out = ""+letter;
             if (sharp!=' ') out+=sharp;
