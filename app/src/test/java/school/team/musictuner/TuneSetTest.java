@@ -22,12 +22,10 @@ public class TuneSetTest {
     }
     private void testNote(double multiple, int octave, char letter, char halfStep) {
         Note note = STANDARD.getNote(multiple*STANDARD_MIDDLE_C_FREQUENCY);
-        System.out.println(note);
         assertTrue(note.toString(),note.letter()==letter&&note.octave()==octave&&note.halfStep()==halfStep);
     }
     private void testNote(double multiple, int octave, char letter1, char halfStep1, char letter2, char halfStep2) {
         Note note = STANDARD.getNote(multiple*STANDARD_MIDDLE_C_FREQUENCY);
-        System.out.println(note);
         assertTrue(note.toString(),note.octave()==octave&&(note.letter()==letter1&&note.halfStep()==halfStep1||note.letter()==letter2&&note.halfStep()==halfStep2));
     }
 }
