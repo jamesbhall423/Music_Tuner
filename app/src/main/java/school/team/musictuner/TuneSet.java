@@ -73,6 +73,7 @@ public abstract class TuneSet {
             if (sharp!=' ') out+=sharp;
             out+=octave;
             double freqOut = STANDARD_MIDDLE_C_FREQUENCY * Math.pow(2,logDif/12.0);
+            if (octave<0||octave>8) return null;
             return new Note(freqOut,out,this,sharp,octave,letter);
         }
     };
