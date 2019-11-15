@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-
 import com.google.gson.Gson;
 
 import java.io.IOException;
