@@ -19,12 +19,27 @@ public class Note implements Comparable<Note>, Cloneable, Serializable {
     * the tuning scheme the note belongs to
      */
     public final TuneSet tuneSet;
+    /**
+     * The flat b, sharp #, natural ' ';
+     */
+    public final char halfStep;
+    /**
+     * The octave of the note
+     */
+    public final int octave;
+    /**
+     * The letter of the note
+     */
+    public final char letter;
 
-    public Note (double frequency, String name, TuneSet tuneSet)
+    public Note (double frequency, String name, TuneSet tuneSet, char halfStep, int octave, char letter)
     {
         this.frequency = frequency;
         this.name = name;
         this.tuneSet = tuneSet;
+        this.halfStep=halfStep;
+        this.octave=octave;
+        this.letter=letter;
     }
 
     /**
