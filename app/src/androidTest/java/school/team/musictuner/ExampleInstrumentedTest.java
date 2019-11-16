@@ -1,6 +1,7 @@
 package school.team.musictuner;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.util.Log;
 
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -23,6 +24,7 @@ import java.io.File;
  */
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
+    public static final String AUDIO_FILE = "data/data/school.team.musictuner.test/audioTest.wav";
     @Test
     public void useAppContext() {
         // Context of the app under test.
@@ -38,7 +40,7 @@ public class ExampleInstrumentedTest {
         //Other people may place the file in a different location.
         Sound sound = null;
         try {
-            sound = new Sound("data/data/school.team.musictuner.test/audioTest.wav");
+            sound = new Sound(AUDIO_FILE);
         } catch (IOException e) {
             throw new AssertionError(e);
         }
@@ -50,6 +52,32 @@ public class ExampleInstrumentedTest {
         double waveBelow = fourierTransform(out,42.1);
         double waveEquals = fourierTransform(out,44.1);
         double waveAbove = fourierTransform(out, 46.1);
+        assertFalse(waveBelow+"",waveBelow>5);
+        assertTrue(waveEquals+"",waveEquals>10);
+        assertFalse(waveAbove+"",waveAbove>5);
+    }
+    @Test
+    public void soundMicTest() {
+        //Requires audioTest.wav be added to android device.
+        //This is done via View->Tools Windows->device explorer.
+        //Other people may place the file in a different location.
+
+        MediaPlayer mp = new MediaPlayer();
+
+        try {
+            mp.setDataSource(AUDIO_FILE);
+            mp.prepare();
+            mp.start();
+        } catch (Exception e) {
+            throw new AssertionError(e);
+        }
+        Sound sound = new Sound(1.0);
+        double[] out = new double[sound.length()];
+        for (int i = 0; i < out.length; i++) out[i]=sound.getDataAt(i);
+
+        double waveBelow = fourierTransform(out,sound.samplesPerSecond()/1050.0);
+        double waveEquals = fourierTransform(out,sound.samplesPerSecond()/1000.0);
+        double waveAbove = fourierTransform(out, sound.samplesPerSecond()/950.0);
         assertFalse(waveBelow+"",waveBelow>5);
         assertTrue(waveEquals+"",waveEquals>10);
         assertFalse(waveAbove+"",waveAbove>5);
