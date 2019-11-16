@@ -47,15 +47,15 @@ public class MainActivity extends AppCompatActivity {
         Log.d("Author", "Main Destroy");
         super.onDestroy();
     }
-    public void loadAdvanced(View view) {
+    public void loadAdvanced() {
         Intent intentLoad = new Intent(this, AdvancedActivity.class);
         startActivity(intentLoad);
     }
-    public void loadSettings(View view) {
+    public void loadSettings() {
         Intent intentLoad = new Intent(this, SettingsActivity.class);
         startActivity(intentLoad);
     }
-    public void loadTraining(View view) {
+    public void loadTraining() {
         Intent intentLoad = new Intent(this, TrainingActivity.class);
         startActivity(intentLoad);
     }

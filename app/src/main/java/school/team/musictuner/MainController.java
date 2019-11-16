@@ -5,8 +5,9 @@ package school.team.musictuner;
 * Works in conjunction with MainDisplay
  */
 public class MainController {
+    private MainDisplay mainDisplay;
     public void setDisplay(MainDisplay display) {
-
+        this.mainDisplay=mainDisplay;
     }
     /**
     * Load up the Note-Time function activity.

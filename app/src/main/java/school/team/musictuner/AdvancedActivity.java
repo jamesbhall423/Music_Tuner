@@ -17,11 +17,11 @@ public class AdvancedActivity extends AppCompatActivity {
         Intent intentLoad = new Intent(this, MainActivity.class);
         startActivity(intentLoad);
     }
-    public void loadSettings(View view) {
+    public void loadSettings() {
         Intent intentLoad = new Intent(this, SettingsActivity.class);
         startActivity(intentLoad);
     }
-    public void loadTraining(View view) {
+    public void loadTraining() {
         Intent intentLoad = new Intent(this, TrainingActivity.class);
         startActivity(intentLoad);
     }
