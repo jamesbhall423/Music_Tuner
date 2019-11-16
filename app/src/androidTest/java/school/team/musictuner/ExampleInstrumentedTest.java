@@ -71,16 +71,34 @@ public class ExampleInstrumentedTest {
         } catch (Exception e) {
             throw new AssertionError(e);
         }
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         Sound sound = new Sound(1.0);
         double[] out = new double[sound.length()];
-        for (int i = 0; i < out.length; i++) out[i]=sound.getDataAt(i);
+        for (int i = 0; i < out.length; i++) out[i]=sound.audioRecord.get(i);
 
         double waveBelow = fourierTransform(out,sound.samplesPerSecond()/1050.0);
         double waveEquals = fourierTransform(out,sound.samplesPerSecond()/1000.0);
         double waveAbove = fourierTransform(out, sound.samplesPerSecond()/950.0);
-        assertFalse(waveBelow+"",waveBelow>5);
-        assertTrue(waveEquals+"",waveEquals>10);
-        assertFalse(waveAbove+"",waveAbove>5);
+        Log.d("Author Mic","samples per Second "+sound.samplesPerSecond());
+        Log.d("Author Mic", "First sample "+sound.getDataAt(0));
+        Log.d("Author Mic","Second Sample"+sound.getDataAt(100));
+        Log.d("Author Mic", "Third Sample"+sound.getDataAt(200));
+        Log.d("Author Mic", "First sample "+sound.getDataAt(3000));
+        Log.d("Author Mic","Second Sample"+sound.getDataAt(3100));
+        Log.d("Author Mic", "Third Sample"+sound.getDataAt(3200));
+        Log.d("Author Mic", "First sample "+sound.getDataAt(6000));
+        Log.d("Author Mic","Second Sample"+sound.getDataAt(6100));
+        Log.d("Author Mic", "Third Sample"+sound.getDataAt(6200));
+        Log.d("Author Mic","Wave Below: "+waveBelow);
+        Log.d("Author Mic","Wave Equals: "+waveEquals);
+        Log.d("Author Mic","Wave Above: "+waveAbove);
+        assertFalse(waveBelow+"",waveBelow>100);
+        assertTrue(waveEquals+"",waveEquals>500);
+        assertFalse(waveAbove+"",waveAbove>100);
     }
     public static double fourierTransform(double[] signal, double sampleWavelength) {
         //If the signal is a simple harmonic, it will inevitably be a combination of the sin and cos trigonametric functions.

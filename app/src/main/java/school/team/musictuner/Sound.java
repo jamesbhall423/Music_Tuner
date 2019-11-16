@@ -3,6 +3,7 @@ package school.team.musictuner;
 import android.media.MediaCodec;
 import android.media.MediaExtractor;
 import android.media.MediaFormat;
+import android.os.Build;
 import android.util.Log;
 
 import java.io.File;
@@ -11,11 +12,29 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.nio.ByteBuffer;
 
+import android.media.MediaRecorder;
+import android.media.MediaRecorder.AudioSource;
+import android.media.AudioRecord;
+import android.media.AudioFormat;
+
+import androidx.annotation.RequiresApi;
+
 /**
 * Represents raw sound data.
 * Essentially air pressure values at different points in time.
  */
 public class Sound implements Cloneable, Serializable {
+    public static int STANDARD_SAMPLE_RATE = 22050;
+    public class MicRecord implements Serializable {
+        private short[] data;
+        public MicRecord(short[] data) {
+            this.data=data;
+        }
+        public double get(int sample) {
+            return data[sample];
+        }
+    }
+    public MicRecord audioRecord;
     private static final long SerialVersionUID = 1L;
 private int length;
 private int mSampleRate;
@@ -28,8 +47,50 @@ private MediaExtractor mediaExtractor;
     /**
     * Creates a sound by listening to audio for the given number of seconds.
      */
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public Sound(double time) {
+        short[] buffer = new short[(int)(STANDARD_SAMPLE_RATE*time)];
+        Log.d("Sound Mic","AudioRecord.errorBadValue "+AudioRecord.ERROR_BAD_VALUE);
+        Log.d("Sound Mic","Audio Record min bytes "+AudioRecord.getMinBufferSize(STANDARD_SAMPLE_RATE,AudioFormat.CHANNEL_IN_MONO,AudioFormat.ENCODING_PCM_16BIT));
+        AudioRecord record = findAudioRecord();//new AudioRecord(AudioSource.MIC,STANDARD_SAMPLE_RATE,AudioFormat.CHANNEL_IN_MONO,AudioFormat.ENCODING_PCM_16BIT,Math.max(2*buffer.length,AudioRecord.getMinBufferSize(STANDARD_SAMPLE_RATE,AudioFormat.CHANNEL_IN_MONO,AudioFormat.ENCODING_PCM_16BIT)));
+        record.startRecording();
+        try {
+            Thread.sleep(1000*(int)time);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        record.stop();
+        record.read(buffer,0,buffer.length);
+        record.release();
+        audioRecord = new MicRecord(buffer);
+        length = buffer.length;
+        mSampleRate = STANDARD_SAMPLE_RATE;
+    }
+    private static int[] mSampleRates = new int[] { 44100, 22050, 11025, 8000 };
+    private AudioRecord findAudioRecord() {
+        for (int rate : mSampleRates) {
+            STANDARD_SAMPLE_RATE=rate;
+            for (short audioFormat : new short[] { AudioFormat.ENCODING_PCM_8BIT, AudioFormat.ENCODING_PCM_16BIT }) {
+                for (short channelConfig : new short[] { AudioFormat.CHANNEL_IN_MONO }) {
+                    try {
+                        Log.d("Sound Mic", "Attempting rate " + rate + "Hz, bits: " + audioFormat + ", channel: "
+                                + channelConfig);
+                        int bufferSize = AudioRecord.getMinBufferSize(rate, channelConfig, audioFormat);
 
+                        if (bufferSize != AudioRecord.ERROR_BAD_VALUE) {
+                            // check if we can instantiate and have a success
+                            AudioRecord recorder = new AudioRecord(AudioSource.DEFAULT, rate, channelConfig, audioFormat, bufferSize);
+
+                            if (recorder.getState() == AudioRecord.STATE_INITIALIZED)
+                                return recorder;
+                        }
+                    } catch (Exception e) {
+                        Log.e("Sound Mic", rate + "Exception, keep trying.",e);
+                    }
+                }
+            }
+        }
+        return null;
     }
     /**
     * Retrieves sound from the given audio file.
