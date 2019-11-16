@@ -11,7 +11,7 @@ public class MainController {
     /**
     * Load up the Note-Time function activity.
      */
-    public void advancedDisplay(View view) {
+    public void advancedDisplay() {
 
     }
     /**

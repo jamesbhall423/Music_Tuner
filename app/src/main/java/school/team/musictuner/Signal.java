@@ -22,7 +22,6 @@ public class Signal implements Cloneable, Serializable {
         Iterator<Pitch> it = frequencies.iterator();
         Pitch current = (Pitch) it;
         return current.getFrequency();
-        }
     }
     /**
     * The frequencies, sorted from lowest to highest.
