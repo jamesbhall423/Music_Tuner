@@ -28,6 +28,7 @@ public class AudioDecoderThread {
 	
 
 	public void startPlay(String path) {
+		Log.d("Author","Start play");
 		eosReceived = false;
 		mExtractor = new MediaExtractor();
 		try {
@@ -35,15 +36,18 @@ public class AudioDecoderThread {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		Log.d("Author","startPlay2");
 
 		int channel = 0;
 		for (int i = 0; i < mExtractor.getTrackCount(); i++) {
+			Log.d("Author","startPlay3");
 			MediaFormat format = mExtractor.getTrackFormat(i);
 			String mime = format.getString(MediaFormat.KEY_MIME);
 			if (mime.startsWith("audio/")) {
 				mExtractor.selectTrack(i);
-				Log.d("TAG", "format : " + format);
+				Log.d("Author", "format : " + format);
 				ByteBuffer csd = format.getByteBuffer("csd-0");
+				Log.d("Author","After usual error");
 				
 				for (int k = 0; k < csd.capacity(); ++k) {
 					Log.e("TAG", "csd : " + csd.array()[k]);
