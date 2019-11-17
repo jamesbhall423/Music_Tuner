@@ -3,12 +3,29 @@ package school.team.musictuner;
 import java.io.Serializable;
 import java.util.SortedSet;
 
+/**
+ * A musical section formatted in a manner the user would expect. Namely, each note will
+ * start on a given beat and end on a given beat.
+ *
+ * For Example
+ * Beat  0   1   2   3   4   5   6
+ * Note  C4  E4  G4  A4  F4  D4  G4
+ * Note  G3--------> A3------->  C3
+ * Note  E3--------> F3------->  G2
+ * Note  C3--------> D3------->  E2
+ */
 public class PlayedSection implements Cloneable, Serializable {
     private static final long SerialVersionUID = 1L;
     private SortedSet<PlayedNote> notes;
     private int beats;
     private double beatsPerSecond;
     private TuneSet tuneSet;
+
+    /**
+     * Creates a Played Section
+     * @param beats - the total number of beats
+     * @param beatsPerSecond
+     */
     public PlayedSection(int beats, double beatsPerSecond) {
 
     }
