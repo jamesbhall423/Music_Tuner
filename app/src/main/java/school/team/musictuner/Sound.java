@@ -138,7 +138,7 @@ private MediaExtractor mediaExtractor;
     /**
     * returns the air pressure value at the given sample.
      */
-    public double getDataAt(int sample) {
+    public static double getDataAt(int sample) {
         return 0.0;
     }
     /**
