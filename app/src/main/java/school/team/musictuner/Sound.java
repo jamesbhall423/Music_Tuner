@@ -1,5 +1,6 @@
 package school.team.musictuner;
 
+import android.media.AudioRecord;
 import android.media.MediaCodec;
 import android.media.MediaExtractor;
 import android.media.MediaFormat;
@@ -8,7 +9,11 @@ import android.util.Log;
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
 * Represents raw sound data.
@@ -33,28 +38,12 @@ private MediaExtractor mediaExtractor;
     * Retrieves sound from the given audio file.
      */
     public Sound(String file) throws IOException {
-        mediaExtractor = new MediaExtractor();
 
-        mediaExtractor.setDataSource(file);
 
-        int channel = 0;
-        for (int i = 0; i < mediaExtractor.getTrackCount(); i++) {
-            MediaFormat format = mediaExtractor.getTrackFormat(i);
-            String mime = format.getString(MediaFormat.KEY_MIME);
-            if (mime.startsWith("audio/")) {
-                mediaExtractor.selectTrack(i);
-                Log.d("SOUND_TAG", "format : " + format);
-                ByteBuffer csd = format.getByteBuffer("csd-0");
 
-                for (int k = 0; k < csd.capacity(); ++k) {
-                    Log.e("SOUND_TAG", "csd : " + csd.array()[k]);
-                }
-                //mSampleRate = format.getInteger(MediaFormat.KEY_SAMPLE_RATE);
-                //channel = format.getInteger(MediaFormat.KEY_CHANNEL_COUNT);
-                break;
-            }
-        }
     }
+
+
 
     /**
     * Starts listening to audio input
