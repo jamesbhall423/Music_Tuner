@@ -44,7 +44,7 @@ public class Signal implements Cloneable, Serializable {
             Pitch current = it.next();
             difference = current.getFrequency()%tuner;
             if (difference>tuner/2)difference=1-difference;
-            /*if (Math.abs(difference)<20)*/ current.setFrequency(current.getFrequency() - difference);
+            if (Math.abs(difference)<20)current.setFrequency(current.getFrequency() - difference);
         }
     }
 
