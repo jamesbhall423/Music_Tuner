@@ -14,16 +14,13 @@ public class AdvancedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_advanced);
     }
     public void loadMain(View view) {
-        Intent intentLoad = new Intent(this, MainActivity.class);
-        startActivity(intentLoad);
+        AdvancedController.mainDisplay(this);
     }
     public void loadSettings(View view) {
-        Intent intentLoad = new Intent(this, SettingsActivity.class);
-        startActivity(intentLoad);
+        AdvancedController.settingsDisplay(this);
     }
     public void loadTraining(View view) {
-        Intent intentLoad = new Intent(this, TrainingActivity.class);
-        startActivity(intentLoad);
+        AdvancedController.trainingDisplay(this);
     }
 }
 

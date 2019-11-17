@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -49,16 +48,13 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
     public void loadAdvanced(View view) {
-        Intent intentLoad = new Intent(this, AdvancedActivity.class);
-        startActivity(intentLoad);
+        MainController.advancedDisplay(this);
     }
     public void loadSettings(View view) {
-        Intent intentLoad = new Intent(this, SettingsActivity.class);
-        startActivity(intentLoad);
+        MainController.settingsDisplay(this);
     }
     public void loadTraining(View view) {
-        Intent intentLoad = new Intent(this, TrainingActivity.class);
-        startActivity(intentLoad);
+        MainController.trainingDisplay(this);
     }
 }
 

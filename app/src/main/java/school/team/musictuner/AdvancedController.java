@@ -1,4 +1,8 @@
 package school.team.musictuner;
+
+import android.content.Context;
+import android.content.Intent;
+
 /**
 * The controller for the Note-Time function.
 * Works with AdvancedDisplay
@@ -79,16 +83,23 @@ public class AdvancedController {
     /**
      * Load up an activity to set the settings.
      */
-    public void settingsDisplay() {
-
+    public static void settingsDisplay(Context context) {
+        Intent intentLoad = new Intent(context, SettingsActivity.class);
+        context.startActivity(intentLoad);
     }
     /**
      * Stretch -
      * Load an activity to train the Tuner to an instrument
      *
      */
-    public void trainingDisplay() {
+    public static void trainingDisplay(Context context) {
+        Intent intentLoad = new Intent(context, TrainingActivity.class);
+        context.startActivity(intentLoad);
+    }
 
+    public static void mainDisplay(Context context) {
+        Intent intentLoad = new Intent(context, MainActivity.class);
+        context.startActivity(intentLoad);
     }
 
 }
