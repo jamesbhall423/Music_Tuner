@@ -1,23 +1,50 @@
 package school.team.musictuner;
 
+/**
+ * A class designed for removing overtones from Signals
+ * This class includes several stretch methods designed to allow the tuner to be trained to the
+ * overtones of a given instrument.
+ */
 public class Tuner {
-    void removeOvertones(Signal signal) {
+    public void removeOvertones(Signal signal) {
 
     }
-    void startTraining() {
+
+    /**
+     * Starts listening for overtones from the users instrument
+     */
+    public void startTraining() {
 
     }
-    void endTraining() {
+
+    /**
+     * Ends listening for overtones from the user's instrument. It will use these overtones to
+     * improve the remove overtones method
+     */
+    public void endTraining() {
 
     }
-    void leaveActivity() {
+
+    /**
+     * ends any training that might be going on without recording it.
+     */
+    public void leaveActivity() {
 
     }
-    void reset() {
+
+    /**
+     * Undoes the effect of any training.
+     */
+    public void reset() {
 
     }
-    boolean isTrained() {
-        return true;
+
+    /**
+     *
+     * @return true if the Tuner removes overtones by training, false if it removes overtones by a basic algorithm
+     */
+    public boolean isTrained() {
+        return false;
     }
 
 }
