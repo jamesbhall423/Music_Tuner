@@ -8,8 +8,8 @@ public interface MainDisplay {
     * Displays the given pitch and its deviation from the ideal note.
     * Must be called on UI thread
      */
-    void displayNote(Pitch pitch, Note note);
+    public void displayNote(Pitch pitch, Note note);
 
-    void runOnUIThread(Runnable runnable);
+    public void runOnUIThread(Runnable runnable);
 
 }

@@ -1,13 +1,15 @@
 package school.team.musictuner;
 
+import java.io.Serializable;
 import java.util.SortedSet;
 
-public class PlayedSection {
+public class PlayedSection implements Cloneable, Serializable {
+    private static final long SerialVersionUID = 1L;
     private SortedSet<PlayedNote> notes;
     private int beats;
     private double beatsPerSecond;
     private TuneSet tuneSet;
-    PlayedSection(int beats, double beatsPerSecond) {
+    public PlayedSection(int beats, double beatsPerSecond) {
 
     }
 
@@ -27,6 +29,44 @@ public class PlayedSection {
     }
     public TuneSet getTuneSet() {
         return tuneSet;
+    }
+
+    /**
+     *
+     */
+    @Override
+    public boolean equals(Object other) {
+        return super.equals(other);
+    }
+    /**
+     * return the hash code for the object.
+     * The hash codes of two objects must be the same if they fulfill equals()
+     * Otherwise the method returns different hash codes inasmuch as possible.
+     */
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    /**
+     * Must return an independent object.
+     * this.equals(this.clone) returns true;
+     */
+    @Override
+    public Object clone() {
+        try {
+            return super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new Error(e);
+        }
+    }
+
+    /**
+     *
+     */
+    @Override
+    public String toString() {
+        return super.toString();
     }
 
 

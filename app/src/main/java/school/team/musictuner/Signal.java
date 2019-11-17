@@ -1,5 +1,6 @@
 package school.team.musictuner;
 
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -8,7 +9,8 @@ import static java.sql.Types.NULL;
 /**
 * Represent a list of frequencies that are present at a particular point in time.
  */
-public class Signal {
+public class Signal implements Cloneable, Serializable {
+    private static final long SerialVersionUID = 1L;
     /**
     * returns the fundamental frequency of the pitches
     * i. e. the fundamental frequency of
@@ -17,7 +19,9 @@ public class Signal {
     * (The others are multiples.)
      */
     public double getFundamentalFrequency() {
-        return 0;
+        Iterator<Pitch> it = frequencies.iterator();
+        Pitch current = it.next();
+        return current.getFrequency();
     }
     /**
     * The frequencies, sorted from lowest to highest.
@@ -34,9 +38,51 @@ public class Signal {
      */
     public void tuneNotes() {
         Iterator<Pitch> it = frequencies.iterator();
-        double Tuner = getFundamentalFrequency();
+        double tuner = getFundamentalFrequency();
         while (it.hasNext()) {
-            Pitch current = (Pitch) it;
+            double difference = 0;
+            Pitch current = it.next();
+            difference = current.getFrequency()%tuner;
+            if (difference>tuner/2)difference=1-difference;
+            if (Math.abs(difference)<20)current.setFrequency(current.getFrequency() - difference);
         }
+    }
+
+    /**
+     *
+     */
+    @Override
+    public boolean equals(Object other) {
+        return super.equals(other);
+    }
+    /**
+     * return the hash code for the object.
+     * The hash codes of two objects must be the same if they fulfill equals()
+     * Otherwise the method returns different hash codes inasmuch as possible.
+     */
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    /**
+     * Must return an independent object.
+     * this.equals(this.clone) returns true;
+     */
+    @Override
+    public Object clone() {
+        try {
+            return super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new Error(e);
+        }
+    }
+
+    /**
+     *
+     */
+    @Override
+    public String toString() {
+        return super.toString();
     }
 }

@@ -1,7 +1,9 @@
 package school.team.musictuner;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.gson.Gson;
@@ -21,5 +23,9 @@ public class SettingsActivity extends AppCompatActivity {
         SharedPreferences.Editor prefsEditor = mPrefs.edit();
         prefsEditor.putString("NAME", json);
         prefsEditor.commit();
+    }
+    public void loadMain(View view) {
+        Intent intentLoad = new Intent(this, MainActivity.class);
+        startActivity(intentLoad);
     }
 }

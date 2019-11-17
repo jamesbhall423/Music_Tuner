@@ -5,19 +5,20 @@ package school.team.musictuner;
 * Works in conjunction with MainDisplay
  */
 public class MainController {
-    void setDisplay(MainDisplay display) {
-
+    private MainDisplay mainDisplay;
+    public void setDisplay(MainDisplay display) {
+        this.mainDisplay=mainDisplay;
     }
     /**
     * Load up the Note-Time function activity.
      */
-    void advancedDisplay() {
+    public void advancedDisplay() {
 
     }
     /**
     * Load up an activity to set the settings.
      */
-    void settingsDisplay() {
+    public void settingsDisplay() {
 
     }
     /**
@@ -25,19 +26,19 @@ public class MainController {
     * Load an activity to train the Tuner to an instrument
     *
      */
-    void trainingDisplay() {
+    public void trainingDisplay() {
 
     }
     /**
     * Starts a background thread that listens for audio notes and displays them to MainDisplay
      */
-    void start(){
+    public void start(){
 
     }
     /**
     * Ends the thread that listens to audio.
      */
-    void pause() {
+    public void pause() {
 
     }
 

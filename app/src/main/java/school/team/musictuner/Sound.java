@@ -1,25 +1,41 @@
 package school.team.musictuner;
 
-import android.media.AudioRecord;
 import android.media.MediaCodec;
 import android.media.MediaExtractor;
 import android.media.MediaFormat;
+import android.os.Build;
 import android.util.Log;
 
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.HashMap;
+
+import android.media.MediaRecorder;
+import android.media.MediaRecorder.AudioSource;
+import android.media.AudioRecord;
+import android.media.AudioFormat;
+
+import androidx.annotation.RequiresApi;
 
 /**
 * Represents raw sound data.
 * Essentially air pressure values at different points in time.
  */
-public class Sound {
+public class Sound implements Cloneable, Serializable {
+    public static int STANDARD_SAMPLE_RATE = 22050;
+    public class MicRecord implements Serializable {
+        private short[] data;
+        public MicRecord(short[] data) {
+            this.data=data;
+        }
+        public double get(int sample) {
+            return data[sample];
+        }
+    }
+    public MicRecord audioRecord;
+    private static final long SerialVersionUID = 1L;
 private int length;
 private int mSampleRate;
 private MediaCodec mediaCodec;
@@ -31,19 +47,77 @@ private MediaExtractor mediaExtractor;
     /**
     * Creates a sound by listening to audio for the given number of seconds.
      */
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public Sound(double time) {
+        short[] buffer = new short[(int)(STANDARD_SAMPLE_RATE*time)];
+        Log.d("Sound Mic","AudioRecord.errorBadValue "+AudioRecord.ERROR_BAD_VALUE);
+        Log.d("Sound Mic","Audio Record min bytes "+AudioRecord.getMinBufferSize(STANDARD_SAMPLE_RATE,AudioFormat.CHANNEL_IN_MONO,AudioFormat.ENCODING_PCM_16BIT));
+        AudioRecord record = findAudioRecord();//new AudioRecord(AudioSource.MIC,STANDARD_SAMPLE_RATE,AudioFormat.CHANNEL_IN_MONO,AudioFormat.ENCODING_PCM_16BIT,Math.max(2*buffer.length,AudioRecord.getMinBufferSize(STANDARD_SAMPLE_RATE,AudioFormat.CHANNEL_IN_MONO,AudioFormat.ENCODING_PCM_16BIT)));
+        record.startRecording();
+        try {
+            Thread.sleep(1000*(int)time);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        record.stop();
+        record.read(buffer,0,buffer.length);
+        record.release();
+        audioRecord = new MicRecord(buffer);
+        length = buffer.length;
+        mSampleRate = STANDARD_SAMPLE_RATE;
+    }
+    private static int[] mSampleRates = new int[] { 44100, 22050, 11025, 8000 };
+    private AudioRecord findAudioRecord() {
+        for (int rate : mSampleRates) {
+            STANDARD_SAMPLE_RATE=rate;
+            for (short audioFormat : new short[] { AudioFormat.ENCODING_PCM_8BIT, AudioFormat.ENCODING_PCM_16BIT }) {
+                for (short channelConfig : new short[] { AudioFormat.CHANNEL_IN_MONO }) {
+                    try {
+                        Log.d("Sound Mic", "Attempting rate " + rate + "Hz, bits: " + audioFormat + ", channel: "
+                                + channelConfig);
+                        int bufferSize = AudioRecord.getMinBufferSize(rate, channelConfig, audioFormat);
 
+                        if (bufferSize != AudioRecord.ERROR_BAD_VALUE) {
+                            // check if we can instantiate and have a success
+                            AudioRecord recorder = new AudioRecord(AudioSource.DEFAULT, rate, channelConfig, audioFormat, bufferSize);
+
+                            if (recorder.getState() == AudioRecord.STATE_INITIALIZED)
+                                return recorder;
+                        }
+                    } catch (Exception e) {
+                        Log.e("Sound Mic", rate + "Exception, keep trying.",e);
+                    }
+                }
+            }
+        }
+        return null;
     }
     /**
     * Retrieves sound from the given audio file.
      */
     public Sound(String file) throws IOException {
+        mediaExtractor = new MediaExtractor();
 
+        mediaExtractor.setDataSource(file);
 
+        int channel = 0;
+        for (int i = 0; i < mediaExtractor.getTrackCount(); i++) {
+            MediaFormat format = mediaExtractor.getTrackFormat(i);
+            String mime = format.getString(MediaFormat.KEY_MIME);
+            if (mime.startsWith("audio/")) {
+                mediaExtractor.selectTrack(i);
+                Log.d("SOUND_TAG", "format : " + format);
+                ByteBuffer csd = format.getByteBuffer("csd-0");
 
+                for (int k = 0; k < csd.capacity(); ++k) {
+                    Log.e("SOUND_TAG", "csd : " + csd.array()[k]);
+                }
+                //mSampleRate = format.getInteger(MediaFormat.KEY_SAMPLE_RATE);
+                //channel = format.getInteger(MediaFormat.KEY_CHANNEL_COUNT);
+                break;
+            }
+        }
     }
-
-
 
     /**
     * Starts listening to audio input
@@ -100,6 +174,44 @@ private MediaExtractor mediaExtractor;
      */
     public Sound getSound(int on, int off) {
         return null;
+    }
+
+    /**
+     *
+     */
+    @Override
+    public boolean equals(Object other) {
+        return super.equals(other);
+    }
+    /**
+     * return the hash code for the object.
+     * The hash codes of two objects must be the same if they fulfill equals()
+     * Otherwise the method returns different hash codes inasmuch as possible.
+     */
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    /**
+     * Must return an independent object.
+     * this.equals(this.clone) returns true;
+     */
+    @Override
+    public Object clone() {
+        try {
+            return super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new Error(e);
+        }
+    }
+
+    /**
+     *
+     */
+    @Override
+    public String toString() {
+        return super.toString();
     }
 
 }

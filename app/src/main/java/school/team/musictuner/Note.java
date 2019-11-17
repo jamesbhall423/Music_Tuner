@@ -1,26 +1,45 @@
 package school.team.musictuner;
+
+import java.io.Serializable;
+
 /**
 * Represents a note on a musical scale, such as C# and Eb
  */
-public class Note implements Comparable<Note> {
+public class Note implements Comparable<Note>, Cloneable, Serializable {
+    private static final long SerialVersionUID = 1L;
     /**
     * The frequency of the note
      */
-    final double frequency;
+    public final double frequency;
     /**
     * The name of the note
      */
-    final String name;
+    public final String name;
     /**
     * the tuning scheme the note belongs to
      */
-    final TuneSet tuneSet;
+    public final TuneSet tuneSet;
+    /**
+     * The flat b, sharp #, natural ' ';
+     */
+    public final char halfStep;
+    /**
+     * The octave of the note
+     */
+    public final int octave;
+    /**
+     * The letter of the note
+     */
+    public final char letter;
 
-    public Note (double frequency, String name, TuneSet tuneSet)
+    public Note (double frequency, String name, TuneSet tuneSet, char halfStep, int octave, char letter)
     {
         this.frequency = frequency;
         this.name = name;
         this.tuneSet = tuneSet;
+        this.halfStep=halfStep;
+        this.octave=octave;
+        this.letter=letter;
     }
 
     /**
@@ -52,21 +71,60 @@ public class Note implements Comparable<Note> {
     * or [blank] natural.
      */
     public char halfStep() {
-        return 'b';
+        return halfStep;
     } //flat b, or sharp #
 
     /**
     * returns the capitalized letter name of the note
      */
     public char letter() { //capitalized
-        return 'C';
+        return letter;
     }
 
     /**
     * returns the note's octave - C4 = middle C
      */
     public int octave() {
-        return 0;
+        return octave;
+    }
+
+
+    /**
+     *
+     */
+    @Override
+    public boolean equals(Object other) {
+        return super.equals(other);
+    }
+    /**
+     * return the hash code for the object.
+     * The hash codes of two objects must be the same if they fulfill equals()
+     * Otherwise the method returns different hash codes inasmuch as possible.
+     */
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    /**
+     * Must return an independent object.
+     * this.equals(this.clone) returns true;
+     */
+    @Override
+    public Object clone() {
+        try {
+            return super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new Error(e);
+        }
+    }
+
+    /**
+     *
+     */
+    @Override
+    public String toString() {
+        return name;
     }
 
 }

@@ -1,5 +1,8 @@
 package school.team.musictuner;
 
+import android.util.Log;
+
+import java.io.*;
 /**
  * Provides a list of useful methods converting between different types of sound classes.
  */
@@ -30,7 +33,7 @@ public class Converter {
      * @return
      */
     public Signal getSignal(Sound sound) {
-        return new Signal();
+        return getSignal(sound,0,sound.length());
     }
 
     /**
@@ -50,8 +53,33 @@ public class Converter {
     public PlayedSection section(Timeline timeline) {
         return null;
     }
-    void setTuner(Tuner tuner) {
+    public void setTuner(Tuner tuner) {
         this.tuner = tuner;
+    }
+    public static Object independentObject(final Object toCopy) {
+        try {
+            final PipedOutputStream out = new PipedOutputStream();
+            final PipedInputStream in = new PipedInputStream(out);
+            final ObjectInputStream read = new ObjectInputStream(in);
+            final ObjectOutputStream write = new ObjectOutputStream(out);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        write.writeObject(toCopy);
+                    } catch (IOException e) {
+                        Log.e("Author", "Failure to copy object: "+toCopy.toString()+" "+e.getMessage());
+                        try {
+                            write.close();
+                        } catch (IOException ex) {
+                        }
+                    }
+                }
+            });
+            return read.readObject();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
