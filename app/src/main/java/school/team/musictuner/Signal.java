@@ -19,7 +19,9 @@ public class Signal implements Cloneable, Serializable {
     * (The others are multiples.)
      */
     public double getFundamentalFrequency() {
-        return 0;
+        Iterator<Pitch> it = frequencies.iterator();
+        Pitch current = it.next();
+        return current.getFrequency();
     }
     /**
     * The frequencies, sorted from lowest to highest.
@@ -36,9 +38,13 @@ public class Signal implements Cloneable, Serializable {
      */
     public void tuneNotes() {
         Iterator<Pitch> it = frequencies.iterator();
-        double Tuner = getFundamentalFrequency();
+        double tuner = getFundamentalFrequency();
         while (it.hasNext()) {
-            Pitch current = (Pitch) it;
+            double difference = 0;
+            Pitch current = it.next();
+            difference = current.getFrequency()%tuner;
+            if (difference>tuner/2)difference=1-difference;
+            if (Math.abs(difference)<20)current.setFrequency(current.getFrequency() - difference);
         }
     }
 

@@ -3,9 +3,12 @@ package school.team.musictuner;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -43,6 +46,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         Log.d("Author", "Main Destroy");
         super.onDestroy();
+    }
+    public void loadAdvanced() {
+        Intent intentLoad = new Intent(this, AdvancedActivity.class);
+        startActivity(intentLoad);
+    }
+    public void loadSettings() {
+        Intent intentLoad = new Intent(this, SettingsActivity.class);
+        startActivity(intentLoad);
+    }
+    public void loadTraining() {
+        Intent intentLoad = new Intent(this, TrainingActivity.class);
+        startActivity(intentLoad);
     }
 }
 
