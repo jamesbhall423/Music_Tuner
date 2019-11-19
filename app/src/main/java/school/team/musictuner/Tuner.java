@@ -6,6 +6,11 @@ package school.team.musictuner;
  * overtones of a given instrument.
  */
 public class Tuner {
+    private Converter converter;
+
+    public void setConverter(Converter converter) {
+        this.converter=converter;
+    }
     public void removeOvertones(Signal signal) {
 
     }
