@@ -24,6 +24,13 @@ public class Converter {
      * @return
      */
     public Signal getSignal(Sound sound, int on, int off) {
+        Boolean isOn = true;
+        int length = sound.length();
+
+        while(isOn == true) {
+
+        }
+
         return null;
     }
 

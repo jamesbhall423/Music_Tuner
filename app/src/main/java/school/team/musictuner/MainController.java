@@ -10,12 +10,14 @@ import android.view.View;
 * Works in conjunction with MainDisplay
  */
 public class MainController {
+
     public static void setDisplay(MainDisplay display) {
 
     }
     /**
     * Load up the Note-Time function activity.
      */
+
     public static void advancedDisplay(Context context) {
         Intent intentLoad = new Intent(context, AdvancedActivity.class);
         context.startActivity(intentLoad);

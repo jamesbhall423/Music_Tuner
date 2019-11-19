@@ -2,23 +2,53 @@ package school.team.musictuner;
 
 import java.io.Serializable;
 
+/**
+ * A Note that lasts for a given number of beats
+ * See PlayedSection
+ */
 public class PlayedNote implements Comparable<PlayedNote>, Cloneable, Serializable {
     private static final long SerialVersionUID = 1L;
 
     private Pitch pitch;
     private int start, end;
+
+    /**
+     * Set the frequency and amplitude of the note.
+     * @param pitch
+     */
     public void setPitch(Pitch pitch) {
         this.pitch = pitch;
     }
+
+    /**
+     *
+     * @return The frequency and amplitude of the note
+     */
     public Pitch getPitch() {
         return pitch;
     }
+
+    /**
+     *
+     * @return the moment or beat when the note begins
+     */
     public int start() {
         return 0;
     }
+
+    /**
+     *
+     * @return the moment or beat when the note ends
+     */
     public int end() {
         return 0;
     }
+
+    /**
+     *
+     * @param start - The beggining of the note
+     * @param end - The end of the note
+     */
     public void setTimeFrame(int start, int end) {
         this.start = start;
         this.end = end;
