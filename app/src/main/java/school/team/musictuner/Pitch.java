@@ -30,8 +30,8 @@ public class Pitch implements Comparable<Pitch>, Cloneable, Serializable {
     /**
     * tunes the frequency to the nearest Note (as in Note class)
      */
-    public void tuneNote() {
-
+    public void tuneNote(TuneSet tuneSet) {
+        setFrequency(tuneSet.getNote(getFrequency()).frequency);
     }
 
 

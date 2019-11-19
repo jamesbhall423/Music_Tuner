@@ -2,6 +2,8 @@ package school.team.musictuner;
 
 import android.content.Context;
 import android.content.Intent;
+import java.util.List;
+
 
 /**
 * The controller for the Note-Time function.
@@ -9,6 +11,9 @@ import android.content.Intent;
 *
  */
 public class AdvancedController {
+    private Sound data; //Save and load
+    private List<PlayedSection> sections; //Save and load
+    private Converter converter;
     /**
     * Creates an AdvancedController
      */

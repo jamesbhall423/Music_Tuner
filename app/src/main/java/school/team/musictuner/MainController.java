@@ -11,8 +11,14 @@ import android.view.View;
  */
 public class MainController {
 
-    public static void setDisplay(MainDisplay display) {
+    private MainDisplay mainDisplay;
+    private Converter converter;
 
+    public void setDisplay(MainDisplay display) {
+        this.mainDisplay=mainDisplay;
+    }
+    public Converter getConverter() {
+        return converter;
     }
     /**
     * Load up the Note-Time function activity.

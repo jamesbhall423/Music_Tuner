@@ -56,6 +56,9 @@ public class PlayedNote implements Comparable<PlayedNote>, Cloneable, Serializab
 
 
     @Override
+    /**
+     * Compare first by start(), then by Pitch.getFrequency()
+     */
     public int compareTo(PlayedNote o) {
         return 0;
     }

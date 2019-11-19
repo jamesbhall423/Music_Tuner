@@ -1,11 +1,19 @@
 package school.team.musictuner;
 
+import java.io.Serializable;
+
 /**
  * A class designed for removing overtones from Signals
  * This class includes several stretch methods designed to allow the tuner to be trained to the
  * overtones of a given instrument.
  */
-public class Tuner {
+public class Tuner implements Serializable {
+    private static long SerialVersionUID = 1L;
+    private Converter converter;
+
+    public void setConverter(Converter converter) {
+        this.converter=converter;
+    }
     public void removeOvertones(Signal signal) {
 
     }
