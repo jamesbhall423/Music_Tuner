@@ -10,7 +10,7 @@ import java.util.List;
 public class AdvancedController {
     private Sound data; //Save and load
     private List<PlayedSection> sections; //Save and load
-    private Converter converter; //Save and load - must also save the Settings in SharedPreferences
+    private Converter converter;
     /**
     * Creates an AdvancedController
      */
