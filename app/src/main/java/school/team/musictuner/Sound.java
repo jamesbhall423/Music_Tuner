@@ -60,7 +60,7 @@ private MediaExtractor mediaExtractor;
             e.printStackTrace();
         }
         record.stop();
-        record.read(buffer,0,buffer.length);
+        record.read(buffer,0,buffer.length); //I do not believe this retrieves the right amount of time.
         record.release();
         audioRecord = new MicRecord(buffer);
         length = buffer.length;
