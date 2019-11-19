@@ -6,8 +6,13 @@ package school.team.musictuner;
  */
 public class MainController {
     private MainDisplay mainDisplay;
+    private Converter converter;
+
     public void setDisplay(MainDisplay display) {
         this.mainDisplay=mainDisplay;
+    }
+    public Converter getConverter() {
+        return converter;
     }
     /**
     * Load up the Note-Time function activity.
