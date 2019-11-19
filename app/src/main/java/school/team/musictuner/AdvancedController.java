@@ -1,10 +1,16 @@
 package school.team.musictuner;
+
+import java.util.List;
+
 /**
 * The controller for the Note-Time function.
 * Works with AdvancedDisplay
 *
  */
 public class AdvancedController {
+    private Sound data; //Save and load
+    private List<PlayedSection> sections; //Save and load
+    private Converter converter; //Save and load - must also save the Settings in SharedPreferences
     /**
     * Creates an AdvancedController
      */
