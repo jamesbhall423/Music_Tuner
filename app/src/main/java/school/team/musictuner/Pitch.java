@@ -8,6 +8,13 @@ import java.io.Serializable;
 public class Pitch implements Comparable<Pitch>, Cloneable, Serializable {
     private static final long SerialVersionUID = 1L;
 
+    public Pitch() {
+
+    }
+    public Pitch(double frequency, double amplitude) {
+        this.frequency=frequency;
+        this.amplitude=amplitude;
+    }
     private double frequency, amplitude;
     public double getFrequency() {
         return frequency;
