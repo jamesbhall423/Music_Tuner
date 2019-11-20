@@ -25,5 +25,18 @@ public class testFundamentalFrequency {
 
         double fundamental = signal.getFundamentalFrequency();
         assertTrue(fundamental+"",fundamental>=98&&fundamental<101.5);
+
+        signal = new Signal();
+
+        pitch1 = new Pitch(300,10);
+        pitch2 = new Pitch(400, 10);
+        pitch3 = new Pitch(500, 10);
+
+        signal.frequencies.add(pitch1);
+        signal.frequencies.add(pitch2);
+        signal.frequencies.add(pitch3);
+
+        fundamental = signal.getFundamentalFrequency();
+        assertTrue(fundamental+"",fundamental>99.9&&fundamental<100.1);
     }
 }
