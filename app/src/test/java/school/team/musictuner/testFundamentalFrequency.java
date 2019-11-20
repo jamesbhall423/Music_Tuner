@@ -24,6 +24,11 @@ public class testFundamentalFrequency {
         signal.frequencies.add(pitch3);
 
         double fundamental = signal.getFundamentalFrequency();
+        //If the algorithm combines all frequencies the result should be in this range.
+        //Errors tend to be around the same number of hertz for the fundamental and the overtones.
+        //For instance, a typical range for a note with a fundamental at 100 hertz and a duration of
+        //0.25 seconds would have the following measurements.
+        // Fundamental: 96->104 hertz, 2x overtone 196-204 hertz, 3x overtone 296-304 hertz.
         assertTrue(fundamental+"",fundamental>=98&&fundamental<101.5);
 
         signal = new Signal();
@@ -37,6 +42,8 @@ public class testFundamentalFrequency {
         signal.frequencies.add(pitch3);
 
         fundamental = signal.getFundamentalFrequency();
+        //The fundamental is not always present in the data. In this case the fundamental
+        //is 100 hertz.
         assertTrue(fundamental+"",fundamental>99.9&&fundamental<100.1);
     }
 }
