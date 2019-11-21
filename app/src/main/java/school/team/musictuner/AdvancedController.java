@@ -2,6 +2,9 @@ package school.team.musictuner;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -14,6 +17,10 @@ public class AdvancedController {
     private Sound data; //Save and load
     private List<PlayedSection> sections; //Save and load
     private Converter converter;
+
+    //Solely for logMethod
+    private String lastFile;
+
     /**
     * Creates an AdvancedController
      */
@@ -36,8 +43,21 @@ public class AdvancedController {
     * save sound data in this instance
      */
     public void save(String file) {
-
+        //To help use the logMethod
+        lastFile = file;
     }
+
+    //log method to test save and load method
+    private void logMethod() {
+        Log.i("logController1", "Starting load method in advanceController.");
+        load(lastFile);
+
+        Log.i("logController2", "Load method succesful. Doing save method in advanceController");
+        save(lastFile);
+
+        Log.i("logController3", "Save and load methods complete. No crashes.....we hope");
+    }
+
     /**
     * read and process the given audio file
      */
