@@ -39,17 +39,17 @@ public static final String MAIN_ACTIVITY_TAG = "Tuner MainActivity";
     }
     @Override
     protected void onPause() {
-        Log.d("Tuner MainActivity", "Main Pause");
+        Log.d(MAIN_ACTIVITY_TAG, "Main Pause");
         super.onPause();
     }
     @Override
     protected void onStop() {
-        Log.d("Tuner MainActivity", "Main Stop");
+        Log.d(MAIN_ACTIVITY_TAG, "Main Stop");
         super.onStop();
     }
     @Override
     protected void onDestroy() {
-        Log.d("Tuner MainActivity", "Main Destroy");
+        Log.d(MAIN_ACTIVITY_TAG, "Main Destroy");
         super.onDestroy();
     }
     public void loadAdvanced(View view) {

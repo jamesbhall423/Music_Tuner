@@ -53,8 +53,8 @@ private MediaExtractor mediaExtractor;
     public Sound(double time) {
         Log.i(tag, "Only 'time' constructor start");
         short[] buffer = new short[(int)(STANDARD_SAMPLE_RATE*time)];
-        Log.d("Sound Mic","AudioRecord.errorBadValue "+AudioRecord.ERROR_BAD_VALUE);
-        Log.d("Sound Mic","Audio Record min bytes "+AudioRecord.getMinBufferSize(STANDARD_SAMPLE_RATE,AudioFormat.CHANNEL_IN_MONO,AudioFormat.ENCODING_PCM_16BIT));
+        Log.d(tag,"AudioRecord.errorBadValue "+AudioRecord.ERROR_BAD_VALUE);
+        Log.d(tag,"Audio Record min bytes "+AudioRecord.getMinBufferSize(STANDARD_SAMPLE_RATE,AudioFormat.CHANNEL_IN_MONO,AudioFormat.ENCODING_PCM_16BIT));
         AudioRecord record = findAudioRecord();//new AudioRecord(AudioSource.MIC,STANDARD_SAMPLE_RATE,AudioFormat.CHANNEL_IN_MONO,AudioFormat.ENCODING_PCM_16BIT,Math.max(2*buffer.length,AudioRecord.getMinBufferSize(STANDARD_SAMPLE_RATE,AudioFormat.CHANNEL_IN_MONO,AudioFormat.ENCODING_PCM_16BIT)));
         record.startRecording();
         try {
@@ -78,7 +78,7 @@ private MediaExtractor mediaExtractor;
             for (short audioFormat : new short[] { AudioFormat.ENCODING_PCM_8BIT, AudioFormat.ENCODING_PCM_16BIT }) {
                 for (short channelConfig : new short[] { AudioFormat.CHANNEL_IN_MONO }) {
                     try {
-                        Log.d("Sound Mic", "Attempting rate " + rate + "Hz, bits: " + audioFormat + ", channel: "
+                        Log.d(tag, "Attempting rate " + rate + "Hz, bits: " + audioFormat + ", channel: "
                                 + channelConfig);
                         int bufferSize = AudioRecord.getMinBufferSize(rate, channelConfig, audioFormat);
 
@@ -90,7 +90,7 @@ private MediaExtractor mediaExtractor;
                                 return recorder;
                         }
                     } catch (Exception e) {
-                        Log.e("Sound Mic", rate + "Exception, keep trying.",e);
+                        Log.d(tag, rate + "Exception, keep trying.",e);
                     }
                 }
             }
