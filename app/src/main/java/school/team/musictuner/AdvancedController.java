@@ -14,6 +14,7 @@ import java.util.List;
 *
  */
 public class AdvancedController {
+    private static final String TAG = "Tuner Advanced";
     private Sound data; //Save and load
     private List<PlayedSection> sections; //Save and load
     private Converter converter;
@@ -34,17 +35,17 @@ public class AdvancedController {
     * load sound data that was previously recorded by this program.
      */
     public void load(String file) {
-        Log.i("logController1", "Starting load method in advanceController.");
+        Log.i(TAG, "Starting load method in advanceController.");
 
-        Log.i("logController2", "Finished load method.");
+        Log.i(TAG, "Finished load method.");
     }
     /**
     * save sound data in this instance
      */
     public void save(String file) {
-        Log.i("logController3", "Starting save method in advanceController");
+        Log.i(TAG, "Starting save method in advanceController");
 
-        Log.i("logController4", "Finished save method.");
+        Log.i(TAG, "Finished save method.");
     }
 
     /**
