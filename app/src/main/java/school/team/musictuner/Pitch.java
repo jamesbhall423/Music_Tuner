@@ -8,6 +8,13 @@ import java.io.Serializable;
 public class Pitch implements Comparable<Pitch>, Cloneable, Serializable {
     private static final long SerialVersionUID = 1L;
 
+    public Pitch() {
+
+    }
+    public Pitch(double frequency, double amplitude) {
+        this.frequency=frequency;
+        this.amplitude=amplitude;
+    }
     private double frequency, amplitude;
     public double getFrequency() {
         return frequency;
@@ -30,8 +37,8 @@ public class Pitch implements Comparable<Pitch>, Cloneable, Serializable {
     /**
     * tunes the frequency to the nearest Note (as in Note class)
      */
-    public void tuneNote() {
-
+    public void tuneNote(TuneSet tuneSet) {
+        setFrequency(tuneSet.getNote(getFrequency()).frequency);
     }
 
 

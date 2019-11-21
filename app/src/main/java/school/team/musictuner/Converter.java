@@ -9,7 +9,8 @@ import java.util.List;
 /**
  * Provides a list of useful methods converting between different types of sound classes.
  */
-public class Converter {
+public class Converter implements Serializable {
+    private static long SerialVersionUID = 1L;
     private Settings settings;
     private Tuner tuner;
     public void setSettings(Settings settings) {

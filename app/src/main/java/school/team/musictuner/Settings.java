@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class Settings implements Cloneable, Serializable {
     private static final long SerialVersionUID = 1L;
     public static final String NAME = "TunerSettings";
-    private double sensitivity;
+    private double sensitivity = 20;
     private boolean removeOvertones;
     private TuneSet tuneSet;
     /**
