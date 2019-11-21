@@ -18,9 +18,6 @@ public class AdvancedController {
     private List<PlayedSection> sections; //Save and load
     private Converter converter;
 
-    //Solely for logMethod
-    private String lastFile;
-
     /**
     * Creates an AdvancedController
      */
@@ -37,25 +34,17 @@ public class AdvancedController {
     * load sound data that was previously recorded by this program.
      */
     public void load(String file) {
+        Log.i("logController1", "Starting load method in advanceController.");
 
+        Log.i("logController2", "Finished load method.");
     }
     /**
     * save sound data in this instance
      */
     public void save(String file) {
-        //To help use the logMethod
-        lastFile = file;
-    }
+        Log.i("logController3", "Starting save method in advanceController");
 
-    //log method to test save and load method
-    private void logMethod() {
-        Log.i("logController1", "Starting load method in advanceController.");
-        load(lastFile);
-
-        Log.i("logController2", "Load method succesful. Doing save method in advanceController");
-        save(lastFile);
-
-        Log.i("logController3", "Save and load methods complete. No crashes.....we hope");
+        Log.i("logController4", "Finished save method.");
     }
 
     /**
