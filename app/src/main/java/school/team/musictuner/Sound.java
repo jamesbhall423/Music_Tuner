@@ -24,6 +24,7 @@ import androidx.annotation.RequiresApi;
 * Essentially air pressure values at different points in time.
  */
 public class Sound implements Cloneable, Serializable {
+    private static String tag = "Tuner Sound";
     public static int STANDARD_SAMPLE_RATE = 22050;
     public class MicRecord implements Serializable {
         private short[] data;
@@ -42,22 +43,25 @@ private MediaCodec mediaCodec;
 private MediaExtractor mediaExtractor;
 
     public Sound(double samplesPerSecond, int length) {
-
+        Log.i(tag, "Samples/s, length constructor start");
+        Log.i(tag, "Samples/s, length constructor end");
     }
     /**
     * Creates a sound by listening to audio for the given number of seconds.
      */
     @RequiresApi(api = Build.VERSION_CODES.M)
     public Sound(double time) {
+        Log.i(tag, "Only 'time' constructor start");
         short[] buffer = new short[(int)(STANDARD_SAMPLE_RATE*time)];
-        Log.d("Sound Mic","AudioRecord.errorBadValue "+AudioRecord.ERROR_BAD_VALUE);
-        Log.d("Sound Mic","Audio Record min bytes "+AudioRecord.getMinBufferSize(STANDARD_SAMPLE_RATE,AudioFormat.CHANNEL_IN_MONO,AudioFormat.ENCODING_PCM_16BIT));
+        Log.d(tag,"AudioRecord.errorBadValue "+AudioRecord.ERROR_BAD_VALUE);
+        Log.d(tag,"Audio Record min bytes "+AudioRecord.getMinBufferSize(STANDARD_SAMPLE_RATE,AudioFormat.CHANNEL_IN_MONO,AudioFormat.ENCODING_PCM_16BIT));
         AudioRecord record = findAudioRecord();//new AudioRecord(AudioSource.MIC,STANDARD_SAMPLE_RATE,AudioFormat.CHANNEL_IN_MONO,AudioFormat.ENCODING_PCM_16BIT,Math.max(2*buffer.length,AudioRecord.getMinBufferSize(STANDARD_SAMPLE_RATE,AudioFormat.CHANNEL_IN_MONO,AudioFormat.ENCODING_PCM_16BIT)));
         record.startRecording();
         try {
             Thread.sleep(1000*(int)time);
         } catch (InterruptedException e) {
             e.printStackTrace();
+            Log.e(tag, "Error in 'time' constructor, sleep method");
         }
         record.stop();
         record.read(buffer,0,buffer.length); //I do not believe this retrieves the right amount of time.
@@ -65,6 +69,7 @@ private MediaExtractor mediaExtractor;
         audioRecord = new MicRecord(buffer);
         length = buffer.length;
         mSampleRate = STANDARD_SAMPLE_RATE;
+        Log.i(tag, "Only 'time' constructor end");
     }
     private static int[] mSampleRates = new int[] { 44100, 22050, 11025, 8000 };
     private AudioRecord findAudioRecord() {
@@ -73,7 +78,7 @@ private MediaExtractor mediaExtractor;
             for (short audioFormat : new short[] { AudioFormat.ENCODING_PCM_8BIT, AudioFormat.ENCODING_PCM_16BIT }) {
                 for (short channelConfig : new short[] { AudioFormat.CHANNEL_IN_MONO }) {
                     try {
-                        Log.d("Sound Mic", "Attempting rate " + rate + "Hz, bits: " + audioFormat + ", channel: "
+                        Log.d(tag, "Attempting rate " + rate + "Hz, bits: " + audioFormat + ", channel: "
                                 + channelConfig);
                         int bufferSize = AudioRecord.getMinBufferSize(rate, channelConfig, audioFormat);
 
@@ -85,7 +90,7 @@ private MediaExtractor mediaExtractor;
                                 return recorder;
                         }
                     } catch (Exception e) {
-                        Log.e("Sound Mic", rate + "Exception, keep trying.",e);
+                        Log.d(tag, rate + "Exception, keep trying.",e);
                     }
                 }
             }
@@ -96,6 +101,7 @@ private MediaExtractor mediaExtractor;
     * Retrieves sound from the given audio file.
      */
     public Sound(String file) throws IOException {
+        Log.i(tag, "File constructor start");
         mediaExtractor = new MediaExtractor();
 
         mediaExtractor.setDataSource(file);
@@ -117,6 +123,7 @@ private MediaExtractor mediaExtractor;
                 break;
             }
         }
+        Log.i(tag, "File constructor end");
     }
 
     /**
@@ -202,6 +209,7 @@ private MediaExtractor mediaExtractor;
         try {
             return super.clone();
         } catch (CloneNotSupportedException e) {
+            Log.e(tag, "Cloning Error");
             throw new Error(e);
         }
     }
