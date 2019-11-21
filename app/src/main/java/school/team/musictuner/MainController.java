@@ -11,7 +11,7 @@ import android.view.View;
 * Works in conjunction with MainDisplay
  */
 public class MainController {
-
+    private static final String TAG = "Tuner MainController";
     private MainDisplay mainDisplay;
     private Converter converter;
 
@@ -26,6 +26,7 @@ public class MainController {
      */
 
     public static void advancedDisplay(Context context) {
+        Log.d(TAG,"Advanced Display Launch");
         Intent intentLoad = new Intent(context, AdvancedActivity.class);
         context.startActivity(intentLoad);
     }
@@ -33,6 +34,7 @@ public class MainController {
     * Load up an activity to set the settings.
      */
     public static void settingsDisplay(Context context) {
+        Log.d(TAG,"Settings Display Launch");
         Intent intentLoad = new Intent(context, SettingsActivity.class);
         context.startActivity(intentLoad);
     }
@@ -42,6 +44,7 @@ public class MainController {
     *
      */
     public static void trainingDisplay(Context context) {
+        Log.d(TAG,"Training Display Launch");
         Intent intentLoad = new Intent(context, TrainingActivity.class);
         context.startActivity(intentLoad);
     }
