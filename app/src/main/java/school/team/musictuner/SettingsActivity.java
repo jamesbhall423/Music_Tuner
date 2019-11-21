@@ -3,6 +3,7 @@ package school.team.musictuner;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,8 +11,10 @@ import com.google.gson.Gson;
 
 public class SettingsActivity extends AppCompatActivity {
 
+    public static final String SETTINGS_ACTIVITY_TAG = "Tuner SettingsActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(SETTINGS_ACTIVITY_TAG, "onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
     }

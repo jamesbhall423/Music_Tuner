@@ -20,12 +20,13 @@ import java.lang.reflect.GenericSignatureFormatError;
 //Another Comment
 //James Hall comment merge
 //James comment X
-public class MainActivity extends AppCompatActivity {
-
+public class MainActivity extends AppCompatActivity implements MainDisplay {
+public static final String MAIN_ACTIVITY_TAG = "Tuner MainActivity";
     private Settings settings;
     private Gson gson;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(MAIN_ACTIVITY_TAG, "onCreate");
         super.onCreate(savedInstanceState);
         gson = new Gson();
         setContentView(R.layout.activity_main);
@@ -59,6 +60,16 @@ public class MainActivity extends AppCompatActivity {
     }
     public void loadTraining(View view) {
         MainController.trainingDisplay(this);
+    }
+
+    @Override
+    public void displayNote(Pitch pitch, Note note) {
+
+    }
+
+    @Override
+    public void runOnUIThread(Runnable runnable) {
+
     }
 }
 
