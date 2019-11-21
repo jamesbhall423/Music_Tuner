@@ -38,17 +38,17 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     protected void onPause() {
-        Log.d("Author", "Main Pause");
+        Log.d("Tuner MainActivity", "Main Pause");
         super.onPause();
     }
     @Override
     protected void onStop() {
-        Log.d("Author", "Main Stop");
+        Log.d("Tuner MainActivity", "Main Stop");
         super.onStop();
     }
     @Override
     protected void onDestroy() {
-        Log.d("Author", "Main Destroy");
+        Log.d("Tuner MainActivity", "Main Destroy");
         super.onDestroy();
     }
     public void loadAdvanced(View view) {

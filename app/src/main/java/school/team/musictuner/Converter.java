@@ -76,7 +76,7 @@ public class Converter implements Serializable {
                     try {
                         write.writeObject(toCopy);
                     } catch (IOException e) {
-                        Log.e("Author", "Failure to copy object: "+toCopy.toString()+" "+e.getMessage());
+                        Log.e("Tuner Converter", "Failure to copy object: "+toCopy.toString()+" "+e.getMessage());
                         try {
                             write.close();
                         } catch (IOException ex) {
