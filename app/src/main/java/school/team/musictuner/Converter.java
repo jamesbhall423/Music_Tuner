@@ -8,6 +8,7 @@ import java.io.*;
  */
 public class Converter implements Serializable {
     private static long SerialVersionUID = 1L;
+    private static final String CONVERTER_TAG = "Tuner Converter";
     private Settings settings;
     private Tuner tuner;
     public void setSettings(Settings settings) {
@@ -76,7 +77,7 @@ public class Converter implements Serializable {
                     try {
                         write.writeObject(toCopy);
                     } catch (IOException e) {
-                        Log.e("Tuner Converter", "Failure to copy object: "+toCopy.toString()+" "+e.getMessage());
+                        Log.e(CONVERTER_TAG, "Failure to copy object: "+toCopy.toString()+" "+e.getMessage());
                         try {
                             write.close();
                         } catch (IOException ex) {
