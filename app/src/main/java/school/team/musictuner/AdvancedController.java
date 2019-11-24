@@ -18,6 +18,7 @@ public class AdvancedController {
     private Sound data; //Save and load
     private List<PlayedSection> sections; //Save and load
     private Converter converter;
+    private AdvancedDisplay display;
 
     /**
     * Creates an AdvancedController
@@ -29,7 +30,7 @@ public class AdvancedController {
     * Sets the display to the given instance
      */
     public void setDisplay(AdvancedDisplay display) {
-
+        this.display=display;
     }
     /**
     * load sound data that was previously recorded by this program.
@@ -84,7 +85,7 @@ public class AdvancedController {
     *
      */
     public void divide(int section, double timeInSection) {
-
+        display.displaySections(sections);
     }
     /**
     * Stretch
