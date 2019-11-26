@@ -190,6 +190,7 @@ public class Converter implements Serializable {
      * @return
      */
     public PlayedSection section(Timeline timeline) {
+        //PlayedSection playedSection = new PlayedSection();
         return null;
     }
     public void setTuner(Tuner tuner) {

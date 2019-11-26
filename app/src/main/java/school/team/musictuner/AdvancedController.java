@@ -5,6 +5,11 @@ import android.content.Intent;
 import android.util.Log;
 
 import java.util.ArrayList;
+
+import java.io.IOException;
+import android.util.Log;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -53,7 +58,11 @@ public class AdvancedController {
     * read and process the given audio file
      */
     public void read(String file) {
-
+        try {
+            data = new Sound(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     /**
     * Starts a recording of audio input.
@@ -116,6 +125,11 @@ public class AdvancedController {
     public static void mainDisplay(Context context) {
         Intent intentLoad = new Intent(context, MainActivity.class);
         context.startActivity(intentLoad);
+    }
+
+    public void startBackgroundThread(Runnable toRun)
+    {
+        new Thread(toRun).start();
     }
 
 }

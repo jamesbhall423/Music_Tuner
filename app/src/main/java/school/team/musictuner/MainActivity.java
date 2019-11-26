@@ -1,6 +1,7 @@
 package school.team.musictuner;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.AndroidViewModel;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 
@@ -24,12 +26,16 @@ public class MainActivity extends AppCompatActivity implements MainDisplay {
 public static final String MAIN_ACTIVITY_TAG = "Tuner MainActivity";
     private Settings settings;
     private Gson gson;
+    private View noteView;
+    private TextView letterNoteTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(MAIN_ACTIVITY_TAG, "onCreate");
         super.onCreate(savedInstanceState);
         gson = new Gson();
         setContentView(R.layout.activity_main);
+        noteView = findViewById(R.id.Note);
+        letterNoteTextView = findViewById(R.id.letterNote);
         SharedPreferences sharedPref = this.getSharedPreferences(Settings.NAME, Context.MODE_PRIVATE);
         settings = gson.fromJson(sharedPref.getString(Settings.NAME, ""), Settings.class);
 
@@ -64,6 +70,10 @@ public static final String MAIN_ACTIVITY_TAG = "Tuner MainActivity";
 
     @Override
     public void displayNote(Pitch pitch, Note note) {
+
+        Note playedNote= pitch.getNote(TuneSet.STANDARD);
+
+        letterNoteTextView.setText(playedNote.letter());
 
     }
 
