@@ -9,8 +9,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.List;
 
+/**
+ * This activity represents the Note-Time function.
+ * It takes sound input and turns it into PlayedSections and displays it.
+ *
+ * see PlayedSection
+ */
 public class AdvancedActivity extends AppCompatActivity implements AdvancedDisplay{
 
+    /**
+     * The LogCat tag
+     */
     public static final String ADVANCED_ACTIVITY_TAG = "Tuner AdvancedActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +37,10 @@ public class AdvancedActivity extends AppCompatActivity implements AdvancedDispl
         AdvancedController.trainingDisplay(this);
     }
 
+    /**
+     * Display the controllers current status:
+     *  for instance, whether it is listening for input, reading a file, or processing data.
+     */
     @Override
     public void showStatus(String status) {
 
@@ -38,6 +51,9 @@ public class AdvancedActivity extends AppCompatActivity implements AdvancedDispl
 
     }
 
+    /**
+     * Displays the given sections (each note) to the user.
+     */
     @Override
     public void displaySections(List<PlayedSection> sections) {
 
