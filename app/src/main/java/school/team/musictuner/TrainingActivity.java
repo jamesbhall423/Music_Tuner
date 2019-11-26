@@ -21,7 +21,7 @@ public class TrainingActivity extends AppCompatActivity {
     }
 
     /*
-    * This will change the view to what the user changed the settings to.
+    * This will load the AdvancedActivity.
     */
     public void loadAdvanced(View view) {
         Intent intentLoad = new Intent(this, AdvancedActivity.class);
