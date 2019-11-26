@@ -49,7 +49,8 @@ public class MainController {
         context.startActivity(intentLoad);
     }
     /**
-    * Starts a background thread that listens for audio notes and displays them to MainDisplay
+    * Starts a background thread (unless there is one already running) that listens for audio notes and displays them to MainDisplay
+     * If a background thread is already running, does nothing.
      */
     public void start(){
 

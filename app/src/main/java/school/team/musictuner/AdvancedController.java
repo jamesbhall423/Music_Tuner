@@ -65,7 +65,8 @@ public class AdvancedController {
         }
     }
     /**
-    * Starts a recording of audio input.
+    * Starts a recording of audio input, if no recording is currently in progress.
+     * If a recording is in progress, does nothing.
      */
     public void startRecording() {
 
