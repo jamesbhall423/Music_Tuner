@@ -16,8 +16,19 @@
         android:layout_marginBottom="231dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.648" />
+
+    <TextView
+        android:id="@+id/letterNote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Note"
+        app:layout_constraintEnd_toEndOf="@+id/Note"
+        app:layout_constraintStart_toStartOf="@+id/Note"
+        tools:layout_editor_absoluteY="236dp" />
 
     <Button
         android:id="@+id/Settings"
@@ -65,4 +76,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Main Display" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
