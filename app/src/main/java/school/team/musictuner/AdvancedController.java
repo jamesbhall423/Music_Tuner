@@ -2,6 +2,9 @@ package school.team.musictuner;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
+
+import java.util.ArrayList;
 
 import java.io.IOException;
 import android.util.Log;
