@@ -9,9 +9,18 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.gson.Gson;
 
+/**
+ * Provides the user with an interface to adjust app settings.
+ */
 public class SettingsActivity extends AppCompatActivity {
 
+
     public static final String SETTINGS_ACTIVITY_TAG = "Tuner SettingsActivity";
+
+    /**
+     * Sets up the SettingsActivity and all necessary variables.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(SETTINGS_ACTIVITY_TAG, "onCreate");
@@ -19,6 +28,11 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
     }
 
+
+    /**
+     * Stores the user's adjusted settings in the user's shared preferences.
+     * @param settings the settings to be stored.
+     */
     public void storeSettings(Settings settings){
         SharedPreferences mPrefs = getSharedPreferences(Settings.NAME,MODE_PRIVATE);
         Gson gson = new Gson();
@@ -27,6 +41,11 @@ public class SettingsActivity extends AppCompatActivity {
         prefsEditor.putString("NAME", json);
         prefsEditor.commit();
     }
+
+    /**
+     * Loads the MainActivity.
+     * @param view
+     */
     public void loadMain(View view) {
         Intent intentLoad = new Intent(this, MainActivity.class);
         startActivity(intentLoad);

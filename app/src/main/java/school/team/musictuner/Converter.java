@@ -196,6 +196,12 @@ public class Converter implements Serializable {
     public void setTuner(Tuner tuner) {
         this.tuner = tuner;
     }
+
+    /**
+     *
+     * @param toCopy
+     * @return a deep-copy of toCopy
+     */
     public static Object independentObject(final Object toCopy) {
         try {
             final PipedOutputStream out = new PipedOutputStream();
