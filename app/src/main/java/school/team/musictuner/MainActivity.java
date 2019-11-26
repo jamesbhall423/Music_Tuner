@@ -16,14 +16,16 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.lang.reflect.GenericSignatureFormatError;
 
-//James Hall comment1
-//Josh Spendlove Comment 2 + 1
-//Zaq Nelson Comment 3
-//Another Comment
-//James Hall comment merge
-//James comment X
+/**
+ * MainActivity, the initial activity when the app is booted, will display notes
+ * as given to it from the MainController. Also includes the navigation to the
+ * other activities
+ */
 public class MainActivity extends AppCompatActivity implements MainDisplay {
-public static final String MAIN_ACTIVITY_TAG = "Tuner MainActivity";
+    /**
+     * Various Variables for the MainActivity
+     */
+    public static final String MAIN_ACTIVITY_TAG = "Tuner MainActivity";
     private Settings settings;
     private Gson gson;
     private View noteView;
@@ -58,16 +60,35 @@ public static final String MAIN_ACTIVITY_TAG = "Tuner MainActivity";
         Log.d(MAIN_ACTIVITY_TAG, "Main Destroy");
         super.onDestroy();
     }
+
+    /**
+     * Calls the MainController to display the Advanced Activity
+     * @param view
+     */
     public void loadAdvanced(View view) {
         MainController.advancedDisplay(this);
     }
+
+    /**
+     * Calls the MainController to display the Settings Activity
+     * @param view
+     */
     public void loadSettings(View view) {
         MainController.settingsDisplay(this);
     }
+
+    /**
+     * Calls the MainController to display the Training Activity
+     * @param view
+     */
     public void loadTraining(View view) {
         MainController.trainingDisplay(this);
     }
 
+    /**
+     * Displays the given pitch and its deviation from the ideal note.
+     * Must be called on UI Thread
+     */
     @Override
     public void displayNote(Pitch pitch, Note note) {
 
@@ -82,5 +103,3 @@ public static final String MAIN_ACTIVITY_TAG = "Tuner MainActivity";
 
     }
 }
-
-//Forest the Confused comment1
