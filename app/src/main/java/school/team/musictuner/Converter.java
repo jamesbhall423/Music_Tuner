@@ -40,6 +40,7 @@ public class Converter implements Serializable {
     /**
      * @author Orlando Selenu
      * for methods static double fft and bitInverse
+     * obtained at https://stackoverflow.com/questions/3287518/reliable-and-fast-fft-in-java
      */
     /**
      * The Fast Fourier Transform (generic version, with NO optimizations).
