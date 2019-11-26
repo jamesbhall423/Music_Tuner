@@ -15,6 +15,8 @@ import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.lang.reflect.GenericSignatureFormatError;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 /**
  * MainActivity, the initial activity when the app is booted, will display notes
@@ -91,10 +93,10 @@ public class MainActivity extends AppCompatActivity implements MainDisplay {
      */
     @Override
     public void displayNote(Pitch pitch, Note note) {
+        NumberFormat formatter = new DecimalFormat("#0.00");
+        double diff = (pitch.getFrequency()-note.frequency)*100/note.frequency;
 
-        Note playedNote= pitch.getNote(TuneSet.STANDARD);
-
-        letterNoteTextView.setText(playedNote.letter());
+        letterNoteTextView.setText(note.toString()+" "+formatter.format(pitch.getFrequency())+"hz ideal: "+formatter.format(note.frequency)+"hz diff: "+formatter.format(diff)+"%");
 
     }
 
