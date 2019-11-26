@@ -93,10 +93,11 @@ public class MainActivity extends AppCompatActivity implements MainDisplay {
      */
     @Override
     public void displayNote(Pitch pitch, Note note) {
-        NumberFormat formatter = new DecimalFormat("#0.00");
+        NumberFormat formatter = new DecimalFormat("#0.0");
         double diff = (pitch.getFrequency()-note.frequency)*100/note.frequency;
 
-        letterNoteTextView.setText(note.toString()+" "+formatter.format(pitch.getFrequency())+"hz ideal: "+formatter.format(note.frequency)+"hz diff: "+formatter.format(diff)+"%");
+        letterNoteTextView.setText(note.toString()+" Val="+formatter.format(pitch.getFrequency())+"hz. Ideal="+formatter.format(note.frequency)+"hz. Diff="+formatter.format(diff)+"%");
+
 
     }
 
