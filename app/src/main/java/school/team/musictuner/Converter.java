@@ -3,6 +3,9 @@ package school.team.musictuner;
 import android.util.Log;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Provides a list of useful methods converting between different types of sound classes.
  */
@@ -26,14 +29,18 @@ public class Converter implements Serializable {
      * @return
      */
     public Signal getSignal(Sound sound, int on, int off) {
-        Boolean isOn = true;
-        int length = sound.length();
+        Signal thisSignal = new Signal();
+        List<Double> list = new ArrayList<Double>();
+        int numberInList = 0;
+        double listInput;
 
-        while(isOn == true) {
-
+        for(int place = on; place <= off; place++) {
+            listInput = Sound.getDataAt(place);
+            list.add(listInput);
+            numberInList++;
         }
 
-        return null;
+        return thisSignal;
     }
 
     /**

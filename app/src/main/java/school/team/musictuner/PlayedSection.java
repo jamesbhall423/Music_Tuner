@@ -30,6 +30,9 @@ public class PlayedSection implements Cloneable, Serializable {
 
     }
 
+    /**
+     * Compare first by start(), then by Pitch.getFrequency()
+     */
     public SortedSet<PlayedNote> getNotes() {
        return notes;
     }
