@@ -52,13 +52,13 @@ public class MainController {
     * Starts a background thread (unless there is one already running) that listens for audio notes and displays them to MainDisplay
      * If a background thread is already running, does nothing.
      */
-    public void start(){
+    public synchronized void start(){
 
     }
     /**
     * Ends the thread that listens to audio.
      */
-    public void pause() {
+    public synchronized void pause() {
 
     }
 

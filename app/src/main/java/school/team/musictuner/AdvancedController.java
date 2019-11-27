@@ -34,13 +34,13 @@ public class AdvancedController {
     /**
     * Sets the display to the given instance
      */
-    public void setDisplay(AdvancedDisplay display) {
+    public synchronized void setDisplay(AdvancedDisplay display) {
         this.display=display;
     }
     /**
     * load sound data that was previously recorded by this program.
      */
-    public void load(String file) {
+    public synchronized void load(String file) {
         Log.i(TAG, "Starting load method in advanceController.");
 
         Log.i(TAG, "Finished load method.");
@@ -48,7 +48,7 @@ public class AdvancedController {
     /**
     * save sound data in this instance
      */
-    public void save(String file) {
+    public synchronized void save(String file) {
         Log.i(TAG, "Starting save method in advanceController");
 
         Log.i(TAG, "Finished save method.");
@@ -57,7 +57,7 @@ public class AdvancedController {
     /**
     * read and process the given audio file
      */
-    public void read(String file) {
+    public synchronized void read(String file) {
         try {
             data = new Sound(file);
         } catch (IOException e) {
@@ -68,20 +68,20 @@ public class AdvancedController {
     * Starts a recording of audio input, if no recording is currently in progress.
      * If a recording is in progress, does nothing.
      */
-    public void startRecording() {
+    public synchronized void startRecording() {
 
     }
     /**
     * Ends and processes the recording of audio input.
      */
-    public void endRecording() {
+    public synchronized void endRecording() {
 
     }
     /**
     * Ends any listening / reading activities or background threads that may be running -
     * Frees all resources used by this controller.
      */
-    public void destroy() {
+    public synchronized void destroy() {
 
     }
     /**
@@ -94,7 +94,7 @@ public class AdvancedController {
     * ABC G C DBC
     *
      */
-    public void divide(int section, double timeInSection) {
+    public synchronized void divide(int section, double timeInSection) {
         display.displaySections(sections);
     }
     /**
@@ -103,7 +103,7 @@ public class AdvancedController {
     *  by varying the number of beats per second.
     *
      */
-    public void setBeats(int section, int beats) {
+    public synchronized void setBeats(int section, int beats) {
 
     }
     /**
