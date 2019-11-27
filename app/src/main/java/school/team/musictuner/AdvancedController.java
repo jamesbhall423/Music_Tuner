@@ -109,23 +109,26 @@ public class AdvancedController {
     /**
      * Load up an activity to set the settings.
      */
-    public static void settingsDisplay(Context context) {
-        Intent intentLoad = new Intent(context, SettingsActivity.class);
-        context.startActivity(intentLoad);
+    public synchronized void settingsDisplay(final Context context) {
+        destroy();
+        final Intent intentLoad = new Intent(context, SettingsActivity.class);
+        display.runOnUIThread(new Runnable(){ public void run() {context.startActivity(intentLoad);}});
     }
     /**
      * Stretch -
      * Load an activity to train the Tuner to an instrument
      *
      */
-    public static void trainingDisplay(Context context) {
-        Intent intentLoad = new Intent(context, TrainingActivity.class);
-        context.startActivity(intentLoad);
+    public synchronized void trainingDisplay(final Context context) {
+       destroy();
+        final Intent intentLoad = new Intent(context, TrainingActivity.class);
+        display.runOnUIThread(new Runnable(){ public void run() {context.startActivity(intentLoad);}});
     }
 
-    public static void mainDisplay(Context context) {
-        Intent intentLoad = new Intent(context, MainActivity.class);
-        context.startActivity(intentLoad);
+    public synchronized void mainDisplay(final Context context) {
+        destroy();
+        final Intent intentLoad = new Intent(context, MainActivity.class);
+        display.runOnUIThread(new Runnable(){ public void run() {context.startActivity(intentLoad);}});
     }
 
     public void startBackgroundThread(Runnable toRun)

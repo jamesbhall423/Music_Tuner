@@ -24,6 +24,7 @@ import java.text.NumberFormat;
  * other activities
  */
 public class MainActivity extends AppCompatActivity implements MainDisplay {
+    private MainController controller = new MainController();
     /**
      * Various Variables for the MainActivity
      */
@@ -68,15 +69,15 @@ public class MainActivity extends AppCompatActivity implements MainDisplay {
      * @param view
      */
     public void loadAdvanced(View view) {
-        MainController.advancedDisplay(this);
+        controller.advancedDisplay(this);
     }
 
     /**
-     * Calls the MainController to display the Settings Activity
+     * Calls the controller to display the Settings Activity
      * @param view
      */
     public void loadSettings(View view) {
-        MainController.settingsDisplay(this);
+        controller.settingsDisplay(this);
     }
 
     /**
@@ -84,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements MainDisplay {
      * @param view
      */
     public void loadTraining(View view) {
-        MainController.trainingDisplay(this);
+        controller.trainingDisplay(this);
     }
 
     /**
