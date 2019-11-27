@@ -61,7 +61,24 @@ public class MainActivity extends AppCompatActivity implements MainDisplay {
     @Override
     protected void onDestroy() {
         Log.d(MAIN_ACTIVITY_TAG, "Main Destroy");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                controller.pause();
+            }
+        }).start();
         super.onDestroy();
+    }
+    @Override
+    protected void onStart() {
+        Log.d(MAIN_ACTIVITY_TAG, "Main Start");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                controller.start();
+            }
+        }).start();
+        super.onStart();
     }
 
     /**

@@ -11,13 +11,24 @@ import androidx.appcompat.app.AppCompatActivity;
  * Brings up the activity to help the user tune their instruments
  */
 public class TrainingActivity extends AppCompatActivity {
-
+    private Tuner tuner = new Tuner();
     public static final String TRAINING_ACTIVITY_TAG = "Tuner TrainingActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TRAINING_ACTIVITY_TAG, "onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_training);
+    }
+    @Override
+    protected void onDestroy() {
+        Log.d(TRAINING_ACTIVITY_TAG, "Training Destroy");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                tuner.leaveActivity();
+            }
+        }).start();
+        super.onDestroy();
     }
 
     /*
