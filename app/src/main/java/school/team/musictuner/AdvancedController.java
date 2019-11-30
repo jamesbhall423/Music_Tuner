@@ -20,6 +20,7 @@ import java.util.List;
  */
 public class AdvancedController {
     private static final String TAG = "Tuner Advanced";
+    private boolean running;
     private Sound data; //Save and load
     private List<PlayedSection> sections; //Save and load
     private Converter converter;
@@ -68,13 +69,13 @@ public class AdvancedController {
     * Starts a recording of audio input.
      */
     public void startRecording() {
-
+running = true;
     }
     /**
     * Ends and processes the recording of audio input.
      */
     public void endRecording() {
-
+running = false;
     }
     /**
     * Ends any listening / reading activities or background threads that may be running -
@@ -129,7 +130,14 @@ public class AdvancedController {
 
     public void startBackgroundThread(Runnable toRun)
     {
-        new Thread(toRun).start();
+        if (!running)
+            new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                startRecording();
+            }
+        }).start();
     }
 
 }
