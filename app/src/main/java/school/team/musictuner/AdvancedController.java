@@ -16,6 +16,7 @@ import java.util.List;
 /**
 * The controller for the Note-Time function.
 * Works with AdvancedDisplay
+ * With the exception of the constructor, setDisplay, and startBackground Thread methods, all methods must be called on background thread.
 *
  */
 public class AdvancedController {
