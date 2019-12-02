@@ -4,6 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import java.io.IOException;
@@ -44,6 +48,18 @@ public class AdvancedController {
     public synchronized void load(String file) {
         Log.i(TAG, "Starting load method in advanceController.");
 
+        try {
+            FileInputStream loadFile = new FileInputStream(file);
+            ObjectInputStream load = new ObjectInputStream(loadFile);
+
+            data = (Sound) load.readObject();
+
+            load.close();
+        }
+        catch(Exception exc) {
+            System.out.println("Error! File doesn't exist or can't be found.");
+        }
+
         Log.i(TAG, "Finished load method.");
     }
     /**
@@ -52,6 +68,16 @@ public class AdvancedController {
     public synchronized void save(String file) {
         Log.i(TAG, "Starting save method in advanceController");
 
+        try {
+            FileOutputStream saveFile = new FileOutputStream(file);
+            ObjectOutputStream save = new ObjectOutputStream(saveFile);
+
+            save.writeObject(data);
+
+            save.close();
+        } catch (Exception exe) {
+            System.out.println("Can't save file!");
+        }
         Log.i(TAG, "Finished save method.");
     }
 
