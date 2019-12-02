@@ -35,13 +35,13 @@ public class AdvancedController {
     /**
     * Sets the display to the given instance
      */
-    public void setDisplay(AdvancedDisplay display) {
+    public synchronized void setDisplay(AdvancedDisplay display) {
         this.display=display;
     }
     /**
     * load sound data that was previously recorded by this program.
      */
-    public void load(String file) {
+    public synchronized void load(String file) {
         Log.i(TAG, "Starting load method in advanceController.");
 
         Log.i(TAG, "Finished load method.");
@@ -49,7 +49,7 @@ public class AdvancedController {
     /**
     * save sound data in this instance
      */
-    public void save(String file) {
+    public synchronized void save(String file) {
         Log.i(TAG, "Starting save method in advanceController");
 
         Log.i(TAG, "Finished save method.");
@@ -58,7 +58,7 @@ public class AdvancedController {
     /**
     * read and process the given audio file
      */
-    public void read(String file) {
+    public synchronized void read(String file) {
         try {
             data = new Sound(file);
         } catch (IOException e) {
@@ -66,22 +66,23 @@ public class AdvancedController {
         }
     }
     /**
-    * Starts a recording of audio input.
+    * Starts a recording of audio input, if no recording is currently in progress.
+     * If a recording is in progress, does nothing.
      */
-    public void startRecording() {
-running = true;
+    public synchronized void startRecording() {
+        running = true;
     }
     /**
     * Ends and processes the recording of audio input.
      */
-    public void endRecording() {
-running = false;
+    public synchronized void endRecording() {
+        running = false;
     }
     /**
     * Ends any listening / reading activities or background threads that may be running -
     * Frees all resources used by this controller.
      */
-    public void destroy() {
+    public synchronized void destroy() {
 
     }
     /**
@@ -94,7 +95,7 @@ running = false;
     * ABC G C DBC
     *
      */
-    public void divide(int section, double timeInSection) {
+    public synchronized void divide(int section, double timeInSection) {
         display.displaySections(sections);
     }
     /**
@@ -103,29 +104,32 @@ running = false;
     *  by varying the number of beats per second.
     *
      */
-    public void setBeats(int section, int beats) {
+    public synchronized void setBeats(int section, int beats) {
 
     }
     /**
      * Load up an activity to set the settings.
      */
-    public static void settingsDisplay(Context context) {
-        Intent intentLoad = new Intent(context, SettingsActivity.class);
-        context.startActivity(intentLoad);
+    public synchronized void settingsDisplay(final Context context) {
+        destroy();
+        final Intent intentLoad = new Intent(context, SettingsActivity.class);
+        display.runOnUIThread(new Runnable(){ public void run() {context.startActivity(intentLoad);}});
     }
     /**
      * Stretch -
      * Load an activity to train the Tuner to an instrument
      *
      */
-    public static void trainingDisplay(Context context) {
-        Intent intentLoad = new Intent(context, TrainingActivity.class);
-        context.startActivity(intentLoad);
+    public synchronized void trainingDisplay(final Context context) {
+       destroy();
+        final Intent intentLoad = new Intent(context, TrainingActivity.class);
+        display.runOnUIThread(new Runnable(){ public void run() {context.startActivity(intentLoad);}});
     }
 
-    public static void mainDisplay(Context context) {
-        Intent intentLoad = new Intent(context, MainActivity.class);
-        context.startActivity(intentLoad);
+    public synchronized void mainDisplay(final Context context) {
+        destroy();
+        final Intent intentLoad = new Intent(context, MainActivity.class);
+        display.runOnUIThread(new Runnable(){ public void run() {context.startActivity(intentLoad);}});
     }
 
     public void startBackgroundThread(Runnable toRun)

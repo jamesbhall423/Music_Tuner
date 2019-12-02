@@ -16,7 +16,7 @@ import java.util.List;
  * see PlayedSection
  */
 public class AdvancedActivity extends AppCompatActivity implements AdvancedDisplay{
-
+    private AdvancedController controller = new AdvancedController(new Converter());
     /**
      * The LogCat tag
      */
@@ -27,14 +27,25 @@ public class AdvancedActivity extends AppCompatActivity implements AdvancedDispl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_advanced);
     }
+    @Override
+    protected void onDestroy() {
+        Log.d(ADVANCED_ACTIVITY_TAG, "Advanced Destroy");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                controller.destroy();
+            }
+        }).start();
+        super.onDestroy();
+    }
     public void loadMain(View view) {
-        AdvancedController.mainDisplay(this);
+        controller.mainDisplay(this);
     }
     public void loadSettings(View view) {
-        AdvancedController.settingsDisplay(this);
+        controller.settingsDisplay(this);
     }
     public void loadTraining(View view) {
-        AdvancedController.trainingDisplay(this);
+        controller.trainingDisplay(this);
     }
 
     /**

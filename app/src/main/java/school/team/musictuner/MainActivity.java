@@ -15,6 +15,8 @@ import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.lang.reflect.GenericSignatureFormatError;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 /**
  * MainActivity, the initial activity when the app is booted, will display notes
@@ -22,6 +24,7 @@ import java.lang.reflect.GenericSignatureFormatError;
  * other activities
  */
 public class MainActivity extends AppCompatActivity implements MainDisplay {
+    private MainController controller = new MainController();
     /**
      * Various Variables for the MainActivity
      */
@@ -58,7 +61,24 @@ public class MainActivity extends AppCompatActivity implements MainDisplay {
     @Override
     protected void onDestroy() {
         Log.d(MAIN_ACTIVITY_TAG, "Main Destroy");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                controller.pause();
+            }
+        }).start();
         super.onDestroy();
+    }
+    @Override
+    protected void onStart() {
+        Log.d(MAIN_ACTIVITY_TAG, "Main Start");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                controller.start();
+            }
+        }).start();
+        super.onStart();
     }
 
     /**
@@ -66,15 +86,15 @@ public class MainActivity extends AppCompatActivity implements MainDisplay {
      * @param view
      */
     public void loadAdvanced(View view) {
-        MainController.advancedDisplay(this);
+        controller.advancedDisplay(this);
     }
 
     /**
-     * Calls the MainController to display the Settings Activity
+     * Calls the controller to display the Settings Activity
      * @param view
      */
     public void loadSettings(View view) {
-        MainController.settingsDisplay(this);
+        controller.settingsDisplay(this);
     }
 
     /**
@@ -82,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements MainDisplay {
      * @param view
      */
     public void loadTraining(View view) {
-        MainController.trainingDisplay(this);
+        controller.trainingDisplay(this);
     }
 
     /**
@@ -91,10 +111,11 @@ public class MainActivity extends AppCompatActivity implements MainDisplay {
      */
     @Override
     public void displayNote(Pitch pitch, Note note) {
+        NumberFormat formatter = new DecimalFormat("#0.0");
+        double diff = (pitch.getFrequency()-note.frequency)*100/note.frequency;
 
-        Note playedNote= pitch.getNote(TuneSet.STANDARD);
+        letterNoteTextView.setText(note.toString()+" Val="+formatter.format(pitch.getFrequency())+"hz. Ideal="+formatter.format(note.frequency)+"hz. Diff="+formatter.format(diff)+"%");
 
-        letterNoteTextView.setText(playedNote.letter());
 
     }
 
