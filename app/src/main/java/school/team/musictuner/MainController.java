@@ -32,7 +32,7 @@ public class MainController {
         Log.d(TAG,"Advanced Display Launch");
         pause();
         final Intent intentLoad = new Intent(context, AdvancedActivity.class);
-        mainDisplay.runOnUIThread(new Runnable(){ public void run() {context.startActivity(intentLoad);}});
+        mainDisplay.runOnUiThread(new Runnable(){ public void run() {context.startActivity(intentLoad);}});
     }
     /**
     * Load up an activity to set the settings.
@@ -41,7 +41,7 @@ public class MainController {
         Log.d(TAG,"Settings Display Launch");
         pause();
         final Intent intentLoad = new Intent(context, SettingsActivity.class);
-        mainDisplay.runOnUIThread(new Runnable(){ public void run() {context.startActivity(intentLoad);}});
+        mainDisplay.runOnUiThread(new Runnable(){ public void run() {context.startActivity(intentLoad);}});
     }
     /**
     * Stretch -
@@ -52,7 +52,7 @@ public class MainController {
         Log.d(TAG,"Training Display Launch");
         pause();
         final Intent intentLoad = new Intent(context, TrainingActivity.class);
-        mainDisplay.runOnUIThread(new Runnable(){ public void run() {context.startActivity(intentLoad);}});
+        mainDisplay.runOnUiThread(new Runnable(){ public void run() {context.startActivity(intentLoad);}});
     }
     /**
     * Starts a background thread (unless there is one already running) that listens for audio notes and displays them to MainDisplay

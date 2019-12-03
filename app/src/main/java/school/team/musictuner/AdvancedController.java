@@ -56,7 +56,7 @@ public class AdvancedController {
 
             data = (Sound) load.readObject();
             sections = (List<PlayedSection>) load.readObject();
-            if (sections!=null) display.runOnUIThread(new Runnable() {
+            if (sections!=null) display.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     display.displaySections(sections);
@@ -151,7 +151,7 @@ public class AdvancedController {
     public synchronized void settingsDisplay(final Context context) {
         destroy();
         final Intent intentLoad = new Intent(context, SettingsActivity.class);
-        display.runOnUIThread(new Runnable(){ public void run() {context.startActivity(intentLoad);}});
+        display.runOnUiThread(new Runnable(){ public void run() {context.startActivity(intentLoad);}});
     }
     /**
      * Stretch -
@@ -161,13 +161,13 @@ public class AdvancedController {
     public synchronized void trainingDisplay(final Context context) {
        destroy();
         final Intent intentLoad = new Intent(context, TrainingActivity.class);
-        display.runOnUIThread(new Runnable(){ public void run() {context.startActivity(intentLoad);}});
+        display.runOnUiThread(new Runnable(){ public void run() {context.startActivity(intentLoad);}});
     }
 
     public synchronized void mainDisplay(final Context context) {
         destroy();
         final Intent intentLoad = new Intent(context, MainActivity.class);
-        display.runOnUIThread(new Runnable(){ public void run() {context.startActivity(intentLoad);}});
+        display.runOnUiThread(new Runnable(){ public void run() {context.startActivity(intentLoad);}});
     }
 
     public void startBackgroundThread(Runnable toRun)

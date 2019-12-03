@@ -57,10 +57,6 @@ public class AdvancedActivity extends AppCompatActivity implements AdvancedDispl
 
     }
 
-    @Override
-    public void runOnUIThread(Runnable runnable) {
-
-    }
 
     /**
      * Displays the given sections (each note) to the user.
