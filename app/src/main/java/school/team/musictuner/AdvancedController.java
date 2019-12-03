@@ -121,7 +121,7 @@ public class AdvancedController {
     * Frees all resources used by this controller.
      */
     public synchronized void destroy() {
-
+        if (running) data.endRecording(recording);
     }
     /**
     * Stretch
