@@ -119,8 +119,4 @@ public class MainActivity extends AppCompatActivity implements MainDisplay {
 
     }
 
-    @Override
-    public void runOnUIThread(Runnable runnable) {
-
-    }
 }

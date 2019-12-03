@@ -10,6 +10,6 @@ public interface MainDisplay {
      */
     public void displayNote(Pitch pitch, Note note);
 
-    public void runOnUIThread(Runnable runnable);
+    public void runOnUiThread(Runnable runnable);
 
 }

@@ -13,7 +13,7 @@ public interface AdvancedDisplay {
      */
     public void showStatus(String status);
 
-    public void runOnUIThread(Runnable runnable);
+    public void runOnUiThread(Runnable runnable);
 
     /**
     * Displays the given sections (each note) to the user.
