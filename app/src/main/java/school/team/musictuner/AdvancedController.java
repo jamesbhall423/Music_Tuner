@@ -29,6 +29,7 @@ public class AdvancedController {
     private List<PlayedSection> sections; //Save and load
     private Converter converter;
     private AdvancedDisplay display;
+    private Object recording;
 
     /**
     * Creates an AdvancedController
@@ -97,12 +98,14 @@ public class AdvancedController {
      */
     public synchronized void startRecording() {
         running = true;
+        recording = data.startRecording(1000);
     }
     /**
     * Ends and processes the recording of audio input.
      */
     public synchronized void endRecording() {
         running = false;
+        data.endRecording(recording);
     }
     /**
     * Ends any listening / reading activities or background threads that may be running -
