@@ -4,6 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import java.io.IOException;
@@ -21,10 +25,12 @@ import java.util.List;
  */
 public class AdvancedController {
     private static final String TAG = "Tuner Advanced";
+    private boolean running;
     private Sound data; //Save and load
     private List<PlayedSection> sections; //Save and load
     private Converter converter;
     private AdvancedDisplay display;
+    private Object recording;
 
     /**
     * Creates an AdvancedController
@@ -44,6 +50,18 @@ public class AdvancedController {
     public synchronized void load(String file) {
         Log.i(TAG, "Starting load method in advanceController.");
 
+        try {
+            FileInputStream loadFile = new FileInputStream(file);
+            ObjectInputStream load = new ObjectInputStream(loadFile);
+
+            data = (Sound) load.readObject();
+
+            load.close();
+        }
+        catch(Exception exc) {
+            System.out.println("Error! File doesn't exist or can't be found.");
+        }
+
         Log.i(TAG, "Finished load method.");
     }
     /**
@@ -52,6 +70,16 @@ public class AdvancedController {
     public synchronized void save(String file) {
         Log.i(TAG, "Starting save method in advanceController");
 
+        try {
+            FileOutputStream saveFile = new FileOutputStream(file);
+            ObjectOutputStream save = new ObjectOutputStream(saveFile);
+
+            save.writeObject(data);
+
+            save.close();
+        } catch (Exception exe) {
+            System.out.println("Can't save file!");
+        }
         Log.i(TAG, "Finished save method.");
     }
 
@@ -70,13 +98,15 @@ public class AdvancedController {
      * If a recording is in progress, does nothing.
      */
     public synchronized void startRecording() {
-
+        running = true;
+        recording = data.startRecording(1000);
     }
     /**
     * Ends and processes the recording of audio input.
      */
     public synchronized void endRecording() {
-
+        running = false;
+        data.endRecording(recording);
     }
     /**
     * Ends any listening / reading activities or background threads that may be running -
@@ -134,7 +164,14 @@ public class AdvancedController {
 
     public void startBackgroundThread(Runnable toRun)
     {
-        new Thread(toRun).start();
+        if (!running)
+            new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                startRecording();
+            }
+        }).start();
     }
 
 }

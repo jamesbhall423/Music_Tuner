@@ -182,6 +182,10 @@ public class Converter implements Serializable {
      * @return
      */
     public Timeline soundTimeline(Sound sound) {
+        for (int i = 0; i < sound.length(); i++)
+        {
+            sound.getSound(i,i);
+        }
         return null;
     }
 
