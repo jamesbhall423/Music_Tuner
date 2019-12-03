@@ -86,5 +86,11 @@ public class MainController {
             mRecorder = null;
         }
     }
+    private void doRecording() {
+        // create Sound from audio Sound(time) 0.5 seconds
+        //getSignal
+        //if signal has pitches
+        //display signal fundamental frequency, note
+    }
 
 }
