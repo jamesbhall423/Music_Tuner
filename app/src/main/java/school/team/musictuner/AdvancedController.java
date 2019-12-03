@@ -56,6 +56,12 @@ public class AdvancedController {
 
             data = (Sound) load.readObject();
             sections = (List<PlayedSection>) load.readObject();
+            if (sections!=null) display.runOnUIThread(new Runnable() {
+                @Override
+                public void run() {
+                    display.displaySections(sections);
+                }
+            });
 
             load.close();
         }
