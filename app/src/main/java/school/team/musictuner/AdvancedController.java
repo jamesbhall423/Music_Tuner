@@ -55,6 +55,7 @@ public class AdvancedController {
             ObjectInputStream load = new ObjectInputStream(loadFile);
 
             data = (Sound) load.readObject();
+            sections = (List<PlayedSection>) load.readObject();
 
             load.close();
         }
@@ -75,6 +76,7 @@ public class AdvancedController {
             ObjectOutputStream save = new ObjectOutputStream(saveFile);
 
             save.writeObject(data);
+            save.writeObject(sections);
 
             save.close();
         } catch (Exception exe) {
