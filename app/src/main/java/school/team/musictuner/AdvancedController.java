@@ -59,7 +59,7 @@ public class AdvancedController {
             load.close();
         }
         catch(Exception exc) {
-            System.out.println("Error! File doesn't exist or can't be found.");
+            Log.e(TAG,"Error! File doesn't exist or can't be found.");
         }
 
         Log.i(TAG, "Finished load method.");
@@ -78,7 +78,7 @@ public class AdvancedController {
 
             save.close();
         } catch (Exception exe) {
-            System.out.println("Can't save file!");
+            Log.e(TAG,"Can't save file!");
         }
         Log.i(TAG, "Finished save method.");
     }
