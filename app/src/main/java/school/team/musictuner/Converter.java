@@ -204,6 +204,28 @@ public class Converter implements Serializable {
 
     /**
      *
+     * @param fourierAmplitudes - the amplitude of each sec
+     * @return
+     */
+    private double[] actualFrequencies(double[] fourierAmplitudes, double samplesPerSecond) {
+
+        return null;
+    }
+
+    /**
+     * 
+     * @param actualFrequencies
+     * @param fourierAmplitudes
+     * @param samplesPerSecond
+     * @return
+     */
+    private double[] amplitudes(double[] actualFrequencies, double[] fourierAmplitudes, double samplesPerSecond) {
+
+        return null;
+    }
+
+    /**
+     *
      * @param toCopy
      * @return a deep-copy of toCopy
      */
