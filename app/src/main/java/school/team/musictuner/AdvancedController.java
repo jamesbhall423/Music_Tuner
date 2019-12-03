@@ -107,6 +107,7 @@ public class AdvancedController {
      */
     public synchronized void startRecording() {
         running = true;
+        display.showStatus("Recording");
         recording = data.startRecording(1000);
     }
     /**
@@ -115,6 +116,17 @@ public class AdvancedController {
     public synchronized void endRecording() {
         running = false;
         data.endRecording(recording);
+        processRecording();
+    }
+
+    private void processRecording(){
+        display.showStatus("Processing");
+        Timeline timeline = converter.soundTimeline(data);
+        PlayedSection playedSection = converter.section(timeline);
+        sections = new ArrayList<PlayedSection>();
+        sections.add(playedSection);
+        display.displaySections(sections);
+        display.showStatus("Finished");
     }
     /**
     * Ends any listening / reading activities or background threads that may be running -
