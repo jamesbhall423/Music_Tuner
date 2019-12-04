@@ -65,7 +65,7 @@ public class ExampleInstrumentedTest {
             }
         } else {
             // Permission has already been granted
-        }*/
+        }
         if (ContextCompat.checkSelfPermission(InstrumentationRegistry.getInstrumentation().getTargetContext(), Manifest.permission.RECORD_AUDIO)
                 != PackageManager.PERMISSION_GRANTED) {
             Log.d(TAG,"Microphone Permission not granted");
@@ -93,12 +93,12 @@ public class ExampleInstrumentedTest {
         double waveAbove = fourierTransform(out, 46.1);
         assertFalse(waveBelow+"",waveBelow>5);
         assertTrue(waveEquals+"",waveEquals>10);
-        assertFalse(waveAbove+"",waveAbove>5);
+        assertFalse(waveAbove+"",waveAbove>5);*/
     }
     @Test
     public void soundMicTest() {
 
-        if (ContextCompat.checkSelfPermission(InstrumentationRegistry.getInstrumentation().getTargetContext(), Manifest.permission.RECORD_AUDIO)
+        /*if (ContextCompat.checkSelfPermission(InstrumentationRegistry.getInstrumentation().getTargetContext(), Manifest.permission.RECORD_AUDIO)
                 != PackageManager.PERMISSION_GRANTED) {
             Log.d(TAG,"Microphone Permission not granted");
         }
@@ -142,7 +142,7 @@ public class ExampleInstrumentedTest {
         Log.d("Author Mic","Wave Above: "+waveAbove);
         assertFalse(waveBelow+"",waveBelow>100);
         assertTrue(waveEquals+"",waveEquals>500);
-        assertFalse(waveAbove+"",waveAbove>100);
+        assertFalse(waveAbove+"",waveAbove>100);*/
     }
     public static double fourierTransform(double[] signal, double sampleWavelength) {
         //If the signal is a simple harmonic, it will inevitably be a combination of the sin and cos trigonametric functions.

@@ -42,9 +42,9 @@ public class TestSoundMicActivity extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Sound sound = new Sound(0.05);
+        Sound sound = new Sound(0.5);
         double[] out = new double[sound.length()];
-        for (int i = 0; i < out.length; i++) out[i]=sound.audioRecord.get(i);
+        for (int i = 0; i < out.length; i++) out[i]=sound.getDataAt(i);
 
         double waveBelow = fourierTransform(out,sound.samplesPerSecond()/470.0);
         double waveEquals = fourierTransform(out,sound.samplesPerSecond()/440.0);
