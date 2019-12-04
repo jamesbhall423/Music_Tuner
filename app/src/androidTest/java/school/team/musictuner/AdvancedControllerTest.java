@@ -19,7 +19,7 @@ public class AdvancedControllerTest {
         }
 
         @Override
-        public void runOnUIThread(Runnable runnable) {
+        public void runOnUiThread(Runnable runnable) {
             runnable.run();
         }
 

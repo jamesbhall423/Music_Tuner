@@ -1,5 +1,7 @@
 package school.team.musictuner;
 
+import android.Manifest;
+import android.content.Context;
 import android.media.MediaCodec;
 import android.media.MediaExtractor;
 import android.media.MediaFormat;
@@ -18,6 +20,7 @@ import android.media.AudioRecord;
 import android.media.AudioFormat;
 
 import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
 
 /**
 * Represents raw sound data.
@@ -75,7 +78,7 @@ private MediaExtractor mediaExtractor;
     private AudioRecord findAudioRecord() {
         for (int rate : mSampleRates) {
             STANDARD_SAMPLE_RATE=rate;
-            for (short audioFormat : new short[] { AudioFormat.ENCODING_PCM_8BIT, AudioFormat.ENCODING_PCM_16BIT }) {
+            for (short audioFormat : new short[] { AudioFormat.ENCODING_PCM_16BIT, AudioFormat.ENCODING_PCM_8BIT,  AudioFormat.ENCODING_PCM_FLOAT }) {
                 for (short channelConfig : new short[] { AudioFormat.CHANNEL_IN_MONO }) {
                     try {
                         Log.d(tag, "Attempting rate " + rate + "Hz, bits: " + audioFormat + ", channel: "

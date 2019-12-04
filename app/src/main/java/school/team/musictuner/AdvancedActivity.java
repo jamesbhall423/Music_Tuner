@@ -1,6 +1,7 @@
 package school.team.musictuner;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +18,7 @@ import java.util.List;
  */
 public class AdvancedActivity extends AppCompatActivity implements AdvancedDisplay{
     private AdvancedController controller = new AdvancedController(new Converter());
+    private boolean micPermissionGranted=false;
     /**
      * The LogCat tag
      */
@@ -63,6 +65,19 @@ public class AdvancedActivity extends AppCompatActivity implements AdvancedDispl
      */
     @Override
     public void displaySections(List<PlayedSection> sections) {
+
+    }
+    @Override
+    public void onRequestPermissionsResult(int request,String[] permissions, int[] results) {
+        switch (request) {
+            case MainActivity.MICROPHONE_REQUEST:
+                if (permissions.length>0) {
+                    if (results[0]== PackageManager.PERMISSION_GRANTED) {
+                        micPermissionGranted=true;
+                    } else MainActivity.getMicrophonePermission(this,MainActivity.MICROPHONE_REQUEST);
+                }
+                break;
+        }
 
     }
 }

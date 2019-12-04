@@ -59,7 +59,7 @@ public class MainController {
      * If a background thread is already running, does nothing.
      */
     public synchronized void start(){
-        String mFileName = null;
+        /*String mFileName = null;
 
         mRecorder = new MediaRecorder();
         mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
@@ -73,7 +73,7 @@ public class MainController {
             Log.e("recordError", "prepare() failed. Can't record functionally.");
         }
 
-        mRecorder.start();
+        mRecorder.start();*/
     }
     /**
     * Ends the thread that listens to audio.

@@ -1,9 +1,13 @@
 package school.team.musictuner;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.util.Log;
 
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
@@ -11,11 +15,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.IOException;
+import java.io.File;
 
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
-import java.io.File;
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -24,7 +28,8 @@ import java.io.File;
  */
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
-    public static final String AUDIO_FILE = "data/data/school.team.musictuner.test/audioTest.wav";
+    public static final String TAG = "Tuner ExampleInstrumented";
+    public static final String AUDIO_FILE = "/data/data/school.team.musictuner.test/audioTest.wav";
     @Test
     public void useAppContext() {
         // Context of the app under test.
@@ -35,10 +40,44 @@ public class ExampleInstrumentedTest {
     }
     @Test
     public void soundFileTest() {
+        /*Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        // Here, context is the current activity
+        if (ContextCompat.checkSelfPermission(context,
+                Manifest.permission.READ_CONTACTS)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Permission is not granted
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(context.,
+                    Manifest.permission.READ_CONTACTS)) {
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+            } else {
+                // No explanation needed; request the permission
+                ActivityCompat.requestPermissions(context,
+                        new String[]{Manifest.permission.READ_CONTACTS},
+                        MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        } else {
+            // Permission has already been granted
+        }*/
+        if (ContextCompat.checkSelfPermission(InstrumentationRegistry.getInstrumentation().getTargetContext(), Manifest.permission.RECORD_AUDIO)
+                != PackageManager.PERMISSION_GRANTED) {
+            Log.d(TAG,"Microphone Permission not granted");
+        }
         //Requires audioTest.wav be added to android device.
         //This is done via View->Tools Windows->device explorer.
         //Other people may place the file in a different location.
         Sound sound = null;
+        assertTrue("directory data does not exist",new File("data/").exists());
+        assertTrue("directory data/data does not exist",new File("data/data").exists());
+        assertTrue("directory does not exist",new File("data/data/school.team.musictuner.test/").exists());
+        assertTrue("Audio file does not exist",new File(AUDIO_FILE).exists());
         try {
             sound = new Sound(AUDIO_FILE);
         } catch (IOException e) {
@@ -58,6 +97,11 @@ public class ExampleInstrumentedTest {
     }
     @Test
     public void soundMicTest() {
+
+        if (ContextCompat.checkSelfPermission(InstrumentationRegistry.getInstrumentation().getTargetContext(), Manifest.permission.RECORD_AUDIO)
+                != PackageManager.PERMISSION_GRANTED) {
+            Log.d(TAG,"Microphone Permission not granted");
+        }
         //Requires audioTest.wav be added to android device.
         //This is done via View->Tools Windows->device explorer.
         //Other people may place the file in a different location.
