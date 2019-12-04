@@ -29,7 +29,7 @@ import androidx.core.content.ContextCompat;
 public class Sound implements Cloneable, Serializable {
     private static String tag = "Tuner Sound";
     public static int STANDARD_SAMPLE_RATE = 22050;
-    public class MicRecord implements Serializable {
+    private class MicRecord implements Serializable {
         private short[] data;
         public MicRecord(short[] data) {
             this.data=data;
@@ -38,7 +38,7 @@ public class Sound implements Cloneable, Serializable {
             return data[sample];
         }
     }
-    public MicRecord audioRecord;
+    private MicRecord audioRecord;
     private static final long SerialVersionUID = 1L;
 private int length;
 private int mSampleRate;
