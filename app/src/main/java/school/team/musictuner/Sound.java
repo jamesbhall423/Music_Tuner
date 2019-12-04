@@ -52,7 +52,7 @@ private MediaExtractor mediaExtractor;
     /**
     * Creates a sound by listening to audio for the given number of seconds.
      */
-    @RequiresApi(api = Build.VERSION_CODES.M)
+    //@RequiresApi(api = Build.VERSION_CODES.M)
     public Sound(double time) {
         Log.i(tag, "Only 'time' constructor start");
         short[] buffer = new short[(int)(STANDARD_SAMPLE_RATE*time)];
@@ -67,7 +67,7 @@ private MediaExtractor mediaExtractor;
             Log.e(tag, "Error in 'time' constructor, sleep method");
         }
         record.stop();
-        record.read(buffer,0,buffer.length); //I do not believe this retrieves the right amount of time.
+        Log.d(tag,"Reading "+record.read(buffer,0,buffer.length)+" values from record"); //I do not believe this retrieves the right amount of time.
         record.release();
         audioRecord = new MicRecord(buffer);
         length = buffer.length;
@@ -148,15 +148,15 @@ private MediaExtractor mediaExtractor;
     /**
     * returns the air pressure value at the given sample.
      */
-    public static double getDataAt(int sample) {
-        return 0.0;
+    public double getDataAt(int sample) {
+        return audioRecord.data[sample];
     }
     /**
     * sets the air pressure value for the given sample.
     * should only be called when building the sound
      */
     public void setDataAt(int point, double value) {
-
+        if (audioRecord!=null) audioRecord.data[point]=(short) value;
     }
     public double samplesPerSecond() {
         return mSampleRate;
