@@ -28,6 +28,7 @@ public class AdvancedActivity extends AppCompatActivity implements AdvancedDispl
         Log.d(ADVANCED_ACTIVITY_TAG, "onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_advanced);
+        controller.setDisplay(this);
     }
     @Override
     protected void onDestroy() {

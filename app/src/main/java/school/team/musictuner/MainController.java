@@ -19,7 +19,8 @@ public class MainController {
     private MediaRecorder mRecorder = null;
 
     public void setDisplay(MainDisplay display) {
-        this.mainDisplay=mainDisplay;
+        Log.d(TAG,"set display "+display);
+        this.mainDisplay=display;
     }
     public Converter getConverter() {
         return converter;
@@ -30,6 +31,7 @@ public class MainController {
 
     public synchronized void advancedDisplay(final Context context) {
         Log.d(TAG,"Advanced Display Launch");
+        Log.d(TAG,"Main Display "+mainDisplay);
         pause();
         final Intent intentLoad = new Intent(context, AdvancedActivity.class);
         mainDisplay.runOnUiThread(new Runnable(){ public void run() {context.startActivity(intentLoad);}});
@@ -81,10 +83,10 @@ public class MainController {
     public synchronized void pause() {
         //If mRecorder is not recording, then it is not initialized which is
         //what we are checking here.
-        if(mRecorder != null) {
+        /*if(mRecorder != null) {
             mRecorder.release();
             mRecorder = null;
-        }
+        }*/
     }
     private void doRecording() {
         // create Sound from audio Sound(time) 0.5 seconds
