@@ -39,13 +39,17 @@ public class Sound implements Cloneable, Serializable {
         private boolean recording = false;
         private AudioRecord record = null;
         private int read = 0;
+        private int count = 0;
         public MicRecord() {
             
         }
-        public synchronized void startRecording(double maxTime) {
+        public synchronized boolean isRecording() {
+            return recording;
+        }
+        public synchronized void startRecording(double maxTime, final boolean allWay) {
             findAudioRecord2();
             data = new short[(int) (maxTime*STANDARD_SAMPLE_RATE)];
-            record = findAudioRecord(maxTime);
+            record = findAudioRecord(0.1);
             recording=true;
             record.startRecording();
             new Thread(new Runnable() {
@@ -53,7 +57,10 @@ public class Sound implements Cloneable, Serializable {
                 public void run() {
                     synchronized (MicRecord.this) {
                         while (recording&&read<data.length) {
-                            int readNext=record.read(data,read,data.length-read);
+                            count++;
+                            int readNext;
+                            if (allWay) readNext=record.read(data,read,data.length-read);
+                            else readNext=record.read(data,read,Math.min(data.length-read,MIN_BUFFER_SIZE));
                             if (read>=0) read+=readNext;
                             else Log.e(tag,"Error when recording: AudioRecorder: "+readNext);
                             try {
@@ -62,6 +69,7 @@ public class Sound implements Cloneable, Serializable {
                                 Log.e(tag,e.getMessage());
                             }
                         }
+                        Log.d(tag,"MicRecord count="+count);
                         endRecording();
                     }
                 }
@@ -73,6 +81,7 @@ public class Sound implements Cloneable, Serializable {
                 record.stop();
                 record.release();
                 record=null;
+                Log.d(tag,"endRecording, length="+read);
             }
         }
         public double get(int sample) {
@@ -108,15 +117,18 @@ private int mSampleRate;
      */
     //@RequiresApi(api = Build.VERSION_CODES.M)
     public Sound(double time) {
-        Log.i(tag, "Only 'time' constructor start");
+        Log.i(tag, "Only 'time' constructor start, time="+time);
         audioRecord = new MicRecord();
-        audioRecord.startRecording(time);
-        try {
-            Thread.sleep(1000*(int)time);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            Log.e(tag, "Error in 'time' constructor, sleep method");
+        audioRecord.startRecording(time,false);
+        while (audioRecord.isRecording()) {
+            try {
+                Thread.sleep(100*(int)time);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                Log.e(tag, "Error in 'time' constructor, sleep method");
+            }
         }
+
         audioRecord.endRecording();
         mSampleRate = STANDARD_SAMPLE_RATE;
         Log.i(tag, "Only 'time' constructor end");
@@ -221,7 +233,7 @@ private int mSampleRate;
      */
     public static Object startRecording(double maxTime) {
         MicRecord record = new MicRecord();
-        record.startRecording(maxTime);
+        record.startRecording(maxTime,false);
         return record;
     }
     /**
