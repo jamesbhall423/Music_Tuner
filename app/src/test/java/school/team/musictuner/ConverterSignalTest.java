@@ -190,4 +190,11 @@ public class ConverterSignalTest {
         phaseCos/=signal.length; //average correlation with the cos function
         return 2*Math.sqrt(phaseSin*phaseSin+phaseCos*phaseCos); //Perfect match gives value 1/2 the amplitude, hence *2
     }
+    @Test
+    public void testConverterFFTLength() {
+        double[] real = new double[128];
+        double[] im = new double[128];
+        int length = Converter.fft(real,im,true).length;
+        System.out.println("Input length: "+real.length+" output length: "+im.length);
+    }
 }

@@ -220,8 +220,34 @@ public class Converter implements Serializable {
      * @return
      */
     private double[] amplitudes(double[] actualFrequencies, double[] fourierAmplitudes, double samplesPerSecond) {
-
+        double basePeriod = 1/samplesPerSecond;
+        for (int i = 0; i < actualFrequencies.length; i++) {
+            int peak = (int) Math.round(actualFrequencies[i]*samplesPerSecond/fourierAmplitudes.length);
+        }
         return null;
+    }
+    private double actualFrequency(double testFreq, double below, double equal, double above, double step) {
+        int dir;
+        double other;
+        if (above>below) {
+            other=above;
+            dir=1;
+        }
+        else {
+            other=below;
+            dir=-1;
+        }
+        double relDelta0 = dir*other/(equal+other);
+        double delta0 = testFreq+relDelta0*step;
+        return delta0;
+    }
+    private double actualAmplitude(double below, double peak, double above) {
+        if (below>above) {
+            double temp=below;
+            below=above;
+            above=temp;
+        }
+        return peak+above-below;
     }
 
     /**
