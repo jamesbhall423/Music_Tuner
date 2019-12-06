@@ -185,11 +185,9 @@ public class Converter implements Serializable {
      * @return
      */
     public Timeline soundTimeline(Sound sound) {
-        for (int i = 0; i < sound.length(); i++)
-        {
-            ;
-        }
-        return null;
+        Timeline timeLine = new Timeline(sound.length(), sound.samplesPerSecond());
+
+        return timeLine;
     }
 
     /**
@@ -198,7 +196,17 @@ public class Converter implements Serializable {
      * @return
      */
     public PlayedSection section(Timeline timeline) {
-        //PlayedSection playedSection = new PlayedSection();
+        Signal signal = new Signal();
+        PlayedSection section = new PlayedSection(timeline.length(), timeline.momentsPerSecond());
+        for(int i = 0; i < timeline.length(); i++)
+             signal = timeline.getMoment(i);
+        Iterator<Pitch> it = signal.frequencies.iterator();
+        Iterator<Pitch> lastIt = it;
+        while(it.hasNext())
+        {
+         Pitch pitch = lastIt.next();
+            section.getNotes().add(new PlayedNote());
+        }
         return null;
     }
     public void setTuner(Tuner tuner) {
