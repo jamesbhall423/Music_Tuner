@@ -5,6 +5,7 @@ import android.util.Log;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -15,6 +16,7 @@ public class Converter implements Serializable {
     private static final String CONVERTER_TAG = "Tuner Converter";
     private Settings settings;
     private Tuner tuner;
+    private static final double SENSITIVITY_FRACTION = 0.1;
     public void setSettings(Settings settings) {
         this.settings=settings;
     }
@@ -220,8 +222,34 @@ public class Converter implements Serializable {
      * @return
      */
     private double[] actualFrequencies(double[] fourierAmplitudes, double samplesPerSecond) {
-
-        return null;
+        double wholePeriod = 2*fourierAmplitudes.length/samplesPerSecond; //The amount of time from the start of the period to the end of the period. The inverse of this is the difference between steps in the fourier transform
+        double step = 1/wholePeriod; //The difference between values in the fourier transform
+        List<Integer> peaks = new ArrayList<>();
+        double last = fourierAmplitudes[0];
+        boolean rising=false;
+        double max = 0.0;
+        for (int i = 1; i < fourierAmplitudes.length; i++) {
+            double next = fourierAmplitudes[i];
+            if (next>last) {
+                rising=true;
+            }
+            else if (rising) {
+                peaks.add(i-1);
+                max = fourierAmplitudes[i-1];
+                rising=false;
+            }
+            last=next;
+        }
+        //
+        if (max<settings.getSensitivity()) return new double[0];
+        double threashold = Math.max(SENSITIVITY_FRACTION*max,settings.getSensitivity());
+        List<Double> out = new ArrayList<>();
+        for (int next: peaks) {
+            if (fourierAmplitudes[next]>threashold) out.add(actualFrequency(next*step,fourierAmplitudes[next-1],fourierAmplitudes[next],fourierAmplitudes[next+1],step));
+        }
+        double[] ret = new double[out.size()];
+        for (int i = 0; i < ret.length; i++) ret[i]=out.get(i);
+        return ret;
     }
 
     /**
@@ -232,8 +260,39 @@ public class Converter implements Serializable {
      * @return
      */
     private double[] amplitudes(double[] actualFrequencies, double[] fourierAmplitudes, double samplesPerSecond) {
-
-        return null;
+        double wholePeriod = 2*fourierAmplitudes.length/samplesPerSecond; //The amount of time from the start of the period to the end of the period. The inverse of this is the difference between steps in the fourier transform
+        double step = 1/wholePeriod; //The difference between values in the fourier transform
+        double[] out = new double[actualFrequencies.length];
+        for (int i = 0; i < actualFrequencies.length; i++) {
+            int peak = (int) Math.round(actualFrequencies[i]/step);
+            if (peak==0) peak++;
+            else if (peak==fourierAmplitudes.length-1) peak--;
+            out[i]=actualAmplitude(fourierAmplitudes[peak-1],fourierAmplitudes[peak],fourierAmplitudes[peak+1]);
+        }
+        return out;
+    }
+    private double actualFrequency(double testFreq, double below, double equal, double above, double step) {
+        int dir;
+        double other;
+        if (above>below) {
+            other=above;
+            dir=1;
+        }
+        else {
+            other=below;
+            dir=-1;
+        }
+        double relDelta0 = dir*other/(equal+other);
+        double delta0 = testFreq+relDelta0*step;
+        return delta0;
+    }
+    private double actualAmplitude(double below, double peak, double above) {
+        if (below>above) {
+            double temp=below;
+            below=above;
+            above=temp;
+        }
+        return peak+above-below;
     }
 
     /**

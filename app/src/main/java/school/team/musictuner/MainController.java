@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.View;
 import android.media.MediaRecorder;
 import java.io.*;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
 * The controller for the initial activity.
@@ -13,6 +15,7 @@ import java.io.*;
 * Works in conjunction with MainDisplay
  */
 public class MainController {
+    private Timer timer;
     private static final String TAG = "Tuner MainController";
     private MainDisplay mainDisplay;
     private Converter converter;
@@ -60,27 +63,27 @@ public class MainController {
     * Starts a background thread (unless there is one already running) that listens for audio notes and displays them to MainDisplay
      * If a background thread is already running, does nothing.
      */
-    public synchronized void start(){
-        /*String mFileName = null;
+    public void start(){
+        if (timer!=null) return;
+        timer = new Timer(true);
+        final Timer run = timer;
+        timer.schedule(new TimerTask() {
 
-        mRecorder = new MediaRecorder();
-        mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        mRecorder.setOutputFile(mFileName);
-        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-
-        try {
-            mRecorder.prepare();
-        } catch (IOException e) {
-            Log.e("recordError", "prepare() failed. Can't record functionally.");
-        }
-
-        mRecorder.start();*/
+            @Override
+            public void run() {
+                //Log.v(TAG,"Main Controller Background Thread");
+                if (timer==null) run.cancel();
+                doRecording();
+            }
+        },0L,250L);
     }
     /**
     * Ends the thread that listens to audio.
      */
-    public synchronized void pause() {
+    public void pause() {
+        Log.d(TAG,"Pause method");
+        timer.cancel();
+        timer=null;
         //If mRecorder is not recording, then it is not initialized which is
         //what we are checking here.
         /*if(mRecorder != null) {
