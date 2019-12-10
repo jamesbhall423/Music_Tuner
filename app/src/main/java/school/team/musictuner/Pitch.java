@@ -85,6 +85,6 @@ public class Pitch implements Comparable<Pitch>, Cloneable, Serializable {
      */
     @Override
     public String toString() {
-        return super.toString();
+        return "Pitch freq="+frequency+" amp="+amplitude;
     }
 }

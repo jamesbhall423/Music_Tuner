@@ -16,7 +16,7 @@ public class Converter implements Serializable {
     private static final String CONVERTER_TAG = "Tuner Converter";
     private Settings settings;
     private Tuner tuner;
-    private static final double SENSITIVITY_FRACTION = 0.1;
+    private static final double SENSITIVITY_FRACTION = 0.2;
     public void setSettings(Settings settings) {
         this.settings=settings;
     }
@@ -32,12 +32,25 @@ public class Converter implements Serializable {
      * @return
      */
     public Signal getSignal(Sound sound, int on, int off) {
-        Signal thisSignal = new Signal();
-        List<Double> list = new ArrayList<Double>();
-        int numberInList = 0;
-        double listInput;
-
-        return thisSignal;
+        int size = 1;
+        while (size<off-on) size*=2;
+        double[] real = new double[size];
+        double[] imag = new double[real.length];
+        for (int i = 0; i < off-on; i++) real[i]=sound.getDataAt(i+on);
+        double[] fft = fft(real,imag,true);
+        double[] fourierAmplitudes = new double[fft.length/2];
+        for (int i = 0; i < fourierAmplitudes.length; i++) fourierAmplitudes[i]=Math.sqrt(fft[2*i]*fft[2*i]+fft[2*i+1]*fft[2*i+1]);
+        double[] frequencies = actualFrequencies(fourierAmplitudes,sound.samplesPerSecond());
+        //System.out.println("length "+frequencies.length);
+        //System.out.println("sensitivity "+settings.getSensitivity());
+        //for (int i = 0; i < frequencies.length; i++) if (fourierAmplitudes[i]>settings.getSensitivity()) System.out.print(i+" ");
+        //System.out.println();
+        //System.out.println("offon: "+off+" "+on);
+        //System.out.println(fourierAmplitudes[0]+" "+fourierAmplitudes[3]+" "+fourierAmplitudes[5]);
+        double[] amplitudes = amplitudes(frequencies,fourierAmplitudes,sound.samplesPerSecond());
+        Signal out = new Signal();
+        for (int i = 0; i < frequencies.length; i++) out.frequencies.add(new Pitch(frequencies[i],amplitudes[i]));
+        return out;
     }
 
     /**
@@ -221,21 +234,22 @@ public class Converter implements Serializable {
      * @param fourierAmplitudes - the amplitude of each sec
      * @return
      */
-    private double[] actualFrequencies(double[] fourierAmplitudes, double samplesPerSecond) {
-        double wholePeriod = 2*fourierAmplitudes.length/samplesPerSecond; //The amount of time from the start of the period to the end of the period. The inverse of this is the difference between steps in the fourier transform
+    public double[] actualFrequencies(double[] fourierAmplitudes, double samplesPerSecond) {
+        double wholePeriod = fourierAmplitudes.length/samplesPerSecond; //The amount of time from the start of the period to the end of the period. The inverse of this is the difference between steps in the fourier transform
         double step = 1/wholePeriod; //The difference between values in the fourier transform
         List<Integer> peaks = new ArrayList<>();
         double last = fourierAmplitudes[0];
         boolean rising=false;
         double max = 0.0;
-        for (int i = 1; i < fourierAmplitudes.length; i++) {
+        for (int i = 1; i < fourierAmplitudes.length/2; i++) {
             double next = fourierAmplitudes[i];
             if (next>last) {
                 rising=true;
             }
             else if (rising) {
                 peaks.add(i-1);
-                max = fourierAmplitudes[i-1];
+                double vNext = actualAmplitude(i-1,fourierAmplitudes);
+                if (vNext>max) max=vNext;
                 rising=false;
             }
             last=next;
@@ -243,13 +257,21 @@ public class Converter implements Serializable {
         //
         if (max<settings.getSensitivity()) return new double[0];
         double threashold = Math.max(SENSITIVITY_FRACTION*max,settings.getSensitivity());
+
         List<Double> out = new ArrayList<>();
+        //System.out.println("Threashold "+threashold);
         for (int next: peaks) {
-            if (fourierAmplitudes[next]>threashold) out.add(actualFrequency(next*step,fourierAmplitudes[next-1],fourierAmplitudes[next],fourierAmplitudes[next+1],step));
+            if (actualAmplitude(next,fourierAmplitudes)>threashold) {
+                //System.out.println("Peak "+next+" "+actualAmplitude(next,fourierAmplitudes));
+                out.add(actualFrequency(next*step,fourierAmplitudes[next-1],fourierAmplitudes[next],fourierAmplitudes[next+1],step));
+            }
         }
         double[] ret = new double[out.size()];
         for (int i = 0; i < ret.length; i++) ret[i]=out.get(i);
         return ret;
+    }
+    private double actualAmplitude(int target, double[] fourierAmplitudes) {
+        return actualAmplitude(fourierAmplitudes[target-1],fourierAmplitudes[target],fourierAmplitudes[target+1]);
     }
 
     /**
@@ -260,7 +282,7 @@ public class Converter implements Serializable {
      * @return
      */
     private double[] amplitudes(double[] actualFrequencies, double[] fourierAmplitudes, double samplesPerSecond) {
-        double wholePeriod = 2*fourierAmplitudes.length/samplesPerSecond; //The amount of time from the start of the period to the end of the period. The inverse of this is the difference between steps in the fourier transform
+        double wholePeriod = fourierAmplitudes.length/samplesPerSecond; //The amount of time from the start of the period to the end of the period. The inverse of this is the difference between steps in the fourier transform
         double step = 1/wholePeriod; //The difference between values in the fourier transform
         double[] out = new double[actualFrequencies.length];
         for (int i = 0; i < actualFrequencies.length; i++) {
