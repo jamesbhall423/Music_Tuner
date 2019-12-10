@@ -20,7 +20,7 @@ public class ConverterSignalTest {
         Pitch[] pitches = getPitch3(assemblePitch(200,5.0),assemblePitch(400,7.0),assemblePitch(550,8.0));
         Pitch[] noise = getPitch3(assemblePitch(150,0.05),assemblePitch(530,0.27),assemblePitch(320,0.15));
         double[] phaseShift = {0.0,1.0,0.5};
-        Sound storage = new Sound(1200,1024);
+        Sound storage = new Sound(1200,250);
         testSignal(converter,pitches,noise,storage,phaseShift,0,storage.length());
 
 
@@ -28,7 +28,7 @@ public class ConverterSignalTest {
         pitches = getPitch3(assemblePitch(25,32.0),assemblePitch(42,27.0),assemblePitch(57,18.0));
         noise = getPitch3(assemblePitch(15,0.5),assemblePitch(53,1.8),assemblePitch(32,1.1));
         double[] phaseShift2 ={2.0,1.0,0.5};
-        storage = new Sound(120,1024);
+        storage = new Sound(120,720);
         testSignal(converter,pitches,noise,storage,phaseShift,10,storage.length()-10);
     }
     private Pitch assemblePitch(double freq, double amp) {
@@ -72,8 +72,8 @@ public class ConverterSignalTest {
         assert (output.length==input.length);
         for (int i = 0; i < input.length; i++) assert (input[i].getFrequency()<output[i].getFrequency()+(storage.samplesPerSecond()/(off-on+0.0)));
         for (int i = 0; i < input.length; i++) assert (input[i].getFrequency()>output[i].getFrequency()-(storage.samplesPerSecond()/(off-on+0.0)));
-        for (int i = 0; i < input.length; i++) assert (input[i].getAmplitude()>0.67*output[i].getAmplitude()-1.0);
-        for (int i = 0; i < input.length; i++) assert (input[i].getAmplitude()<1.5*output[i].getAmplitude()+1.0);
+        for (int i = 0; i < input.length; i++) assert (input[i].getAmplitude()>0.6*output[i].getAmplitude()-1.0);
+        for (int i = 0; i < input.length; i++) assert (input[i].getAmplitude()<1.67*output[i].getAmplitude()+1.0);
 
     }
     private void printPitches(String base, Pitch[] pitches) {

@@ -39,7 +39,7 @@ public class Converter implements Serializable {
         for (int i = 0; i < off-on; i++) real[i]=sound.getDataAt(i+on);
         double[] fft = fft(real,imag,true);
         double[] fourierAmplitudes = new double[fft.length/2];
-        for (int i = 0; i < fourierAmplitudes.length; i++) fourierAmplitudes[i]=Math.sqrt(fft[2*i]*fft[2*i]+fft[2*i+1]*fft[2*i+1]);
+        for (int i = 0; i < fourierAmplitudes.length; i++) fourierAmplitudes[i]=size/(off-on-0.0)*Math.sqrt(fft[2*i]*fft[2*i]+fft[2*i+1]*fft[2*i+1]);
         double[] frequencies = actualFrequencies(fourierAmplitudes,sound.samplesPerSecond());
         //System.out.println("length "+frequencies.length);
         //System.out.println("sensitivity "+settings.getSensitivity());
@@ -155,7 +155,9 @@ public class Converter implements Serializable {
         // be possible to do this stuff in the earlier parts of the code, but
         // it's here to readibility).
         double[] newArray = new double[xReal.length * 2];
-        double radice = 1 / Math.sqrt(n);
+        //double radice = 1 / Math.sqrt(n);
+        double radice = 2.0/n;
+        //System.out.println("fft: "+radice);
         for (int i = 0; i < newArray.length; i += 2) {
             int i2 = i / 2;
             // I used Stephen Wolfram's Mathematica as a reference so I'm going
@@ -235,6 +237,7 @@ public class Converter implements Serializable {
      * @return
      */
     public double[] actualFrequencies(double[] fourierAmplitudes, double samplesPerSecond) {
+        //System.out.println("Hello There");
         double wholePeriod = fourierAmplitudes.length/samplesPerSecond; //The amount of time from the start of the period to the end of the period. The inverse of this is the difference between steps in the fourier transform
         double step = 1/wholePeriod; //The difference between values in the fourier transform
         List<Integer> peaks = new ArrayList<>();
@@ -243,11 +246,13 @@ public class Converter implements Serializable {
         double max = 0.0;
         for (int i = 1; i < fourierAmplitudes.length/2; i++) {
             double next = fourierAmplitudes[i];
+            //System.out.println("Hello 3: "+next);
             if (next>last) {
                 rising=true;
             }
             else if (rising) {
                 peaks.add(i-1);
+                //System.out.println("Hello 2");
                 double vNext = actualAmplitude(i-1,fourierAmplitudes);
                 if (vNext>max) max=vNext;
                 rising=false;
