@@ -25,6 +25,10 @@ public class MainController {
         Log.d(TAG,"set display "+display);
         this.mainDisplay=display;
     }
+    public MainController() {
+        converter=new Converter();
+        converter.setSettings(new Settings());
+    }
     public Converter getConverter() {
         return converter;
     }

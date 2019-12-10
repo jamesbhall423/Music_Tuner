@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements MainDisplay {
         letterNoteTextView = findViewById(R.id.letterNote);
         SharedPreferences sharedPref = this.getSharedPreferences(Settings.NAME, Context.MODE_PRIVATE);
         settings = gson.fromJson(sharedPref.getString(Settings.NAME, ""), Settings.class);
+        if (settings!=null) controller.getConverter().setSettings(settings);
 
             /*AudioDecoderThread sound = new AudioDecoderThread();
             sound.startPlay("/storage/emulated/0/Music/Test.m4a");*/
