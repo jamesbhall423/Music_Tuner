@@ -71,17 +71,20 @@ public class Converter implements Serializable {
      * @return
      */
     public PlayedSection section(Timeline timeline) {
-        Signal signal = new Signal();
+        Signal signal;
         PlayedSection section = new PlayedSection(timeline.length(), timeline.momentsPerSecond());
-        for(int i = 0; i < timeline.length(); i++)
-             signal = timeline.getMoment(i);
-        Iterator<Pitch> it = signal.frequencies.iterator();
-        Iterator<Pitch> lastIt = it;
-        while(it.hasNext())
-        {
-         Pitch pitch = lastIt.next();
-            section.getNotes().add(new PlayedNote());
+        for(int i = 0; i < timeline.length(); i++) {
+            signal = timeline.getMoment(i);
+            Iterator<Pitch> it = signal.frequencies.iterator();
+            Iterator<Pitch> lastIt = it;
+            while(it.hasNext())
+            {
+                Pitch pitch = lastIt.next();
+                section.getNotes().add(new PlayedNote());
+
+            }
         }
+
         return null;
     }
     public void setTuner(Tuner tuner) {
