@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements MainDisplay {
       //      }
       //  }).start();
         super.onDestroy();
+        System.exit(0);
     }
     @Override
     protected void onStart() {
