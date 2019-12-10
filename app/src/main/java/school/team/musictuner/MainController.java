@@ -67,7 +67,7 @@ public class MainController {
     * Starts a background thread (unless there is one already running) that listens for audio notes and displays them to MainDisplay
      * If a background thread is already running, does nothing.
      */
-    public void start(){
+    public synchronized void start(){
         if (timer!=null) return;
         timer = new Timer(true);
         final Timer run = timer;
@@ -84,9 +84,9 @@ public class MainController {
     /**
     * Ends the thread that listens to audio.
      */
-    public void pause() {
+    public synchronized void pause() {
         Log.d(TAG,"Pause method");
-        timer.cancel();
+        if (timer!=null) timer.cancel();
         timer=null;
         //If mRecorder is not recording, then it is not initialized which is
         //what we are checking here.
