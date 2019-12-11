@@ -18,6 +18,7 @@ public class SettingsActivity extends AppCompatActivity {
 
 
     public static final String SETTINGS_ACTIVITY_TAG = "Tuner SettingsActivity";
+    public static final String SETTINGS = "Settings";
 
     /**
      * Sets up the SettingsActivity and all necessary variables.
@@ -28,6 +29,8 @@ public class SettingsActivity extends AppCompatActivity {
         Log.d(SETTINGS_ACTIVITY_TAG, "onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        Intent intent = getIntent();
+        settings = (Settings) intent.getSerializableExtra(SETTINGS);
     }
     @Override
     protected void onStop() {

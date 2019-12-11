@@ -17,9 +17,11 @@ import java.util.TimerTask;
 public class MainController {
     private Timer timer;
     private static final String TAG = "Tuner MainController";
+    private static final String SETTINGS = "Settings";
     private MainDisplay mainDisplay;
     private Converter converter;
     private MediaRecorder mRecorder = null;
+    private Settings settings;
 
     public void setDisplay(MainDisplay display) {
         Log.d(TAG,"set display "+display);
@@ -27,7 +29,10 @@ public class MainController {
     }
     public MainController() {
         converter=new Converter();
-        converter.setSettings(new Settings());
+        settings = new Settings();
+
+        converter.setSettings(settings);
+
     }
     public Converter getConverter() {
         return converter;
@@ -50,6 +55,7 @@ public class MainController {
         Log.d(TAG,"Settings Display Launch");
         pause();
         final Intent intentLoad = new Intent(context, SettingsActivity.class);
+        intentLoad.putExtra(SETTINGS, settings);
         mainDisplay.runOnUiThread(new Runnable(){ public void run() {context.startActivity(intentLoad);}});
     }
     /**
