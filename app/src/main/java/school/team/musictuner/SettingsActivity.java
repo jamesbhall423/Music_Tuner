@@ -35,6 +35,13 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         Log.d(SETTINGS_ACTIVITY_TAG, "onStop");
+
+        super.onStop();
+    }
+
+    @Override
+    protected void onPause() {
+        Log.d(SETTINGS_ACTIVITY_TAG, "onPause");
         TextView thresholdInput = (TextView) findViewById(R.id.thresholdInput);
         try {
             double threshold = Double.parseDouble(thresholdInput.getText().toString());
@@ -43,7 +50,7 @@ public class SettingsActivity extends AppCompatActivity {
         } catch (RuntimeException e) {
             Log.e(SETTINGS_ACTIVITY_TAG,e.getMessage());
         }
-        super.onStop();
+        super.onPause();
     }
 
 

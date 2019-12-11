@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements MainDisplay {
         Log.d(MAIN_ACTIVITY_TAG, "onCreate");
         super.onCreate(savedInstanceState);
         getMicrophonePermission(this,1);
+        controller.loadSettings(this);
         controller.setDisplay(this);
         if (ContextCompat.checkSelfPermission(this,Manifest.permission.RECORD_AUDIO)
                 != PackageManager.PERMISSION_GRANTED) {

@@ -2,9 +2,13 @@ package school.team.musictuner;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.View;
 import android.media.MediaRecorder;
+
+import com.google.gson.Gson;
+
 import java.io.*;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -29,9 +33,9 @@ public class MainController {
     }
     public MainController() {
         converter=new Converter();
-        settings = new Settings();
+       // settings = new Settings();
 
-        converter.setSettings(settings);
+       // converter.setSettings(settings);
 
     }
     public Converter getConverter() {
@@ -106,6 +110,21 @@ public class MainController {
         //getSignal
         //if signal has pitches
         //display signal fundamental frequency, note
+    }
+
+    public void loadSettings(Context context) {
+        SharedPreferences mPrefs = context.getSharedPreferences(Settings.NAME, Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = mPrefs.getString("NAME", "EMPTY");
+        if(json.equals("EMPTY")) {
+            settings = new Settings();
+            System.out.println("CALLED!!!!");
+        }
+        else {
+            settings = gson.fromJson(json, Settings.class);
+        }
+
+        converter.setSettings(settings);
     }
 
 }
