@@ -2,9 +2,13 @@ package school.team.musictuner;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.View;
 import android.media.MediaRecorder;
+
+import com.google.gson.Gson;
+
 import java.io.*;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -17,13 +21,22 @@ import java.util.TimerTask;
 public class MainController {
     private Timer timer;
     private static final String TAG = "Tuner MainController";
+    private static final String SETTINGS = "Settings";
     private MainDisplay mainDisplay;
     private Converter converter;
     private MediaRecorder mRecorder = null;
+    private Settings settings;
 
     public void setDisplay(MainDisplay display) {
         Log.d(TAG,"set display "+display);
         this.mainDisplay=display;
+    }
+    public MainController() {
+        converter=new Converter();
+       // settings = new Settings();
+
+       // converter.setSettings(settings);
+
     }
     public Converter getConverter() {
         return converter;
@@ -46,6 +59,7 @@ public class MainController {
         Log.d(TAG,"Settings Display Launch");
         pause();
         final Intent intentLoad = new Intent(context, SettingsActivity.class);
+        intentLoad.putExtra(SETTINGS, settings);
         mainDisplay.runOnUiThread(new Runnable(){ public void run() {context.startActivity(intentLoad);}});
     }
     /**
@@ -63,7 +77,7 @@ public class MainController {
     * Starts a background thread (unless there is one already running) that listens for audio notes and displays them to MainDisplay
      * If a background thread is already running, does nothing.
      */
-    public void start(){
+    public synchronized void start(){
         if (timer!=null) return;
         timer = new Timer(true);
         final Timer run = timer;
@@ -80,9 +94,9 @@ public class MainController {
     /**
     * Ends the thread that listens to audio.
      */
-    public void pause() {
+    public synchronized void pause() {
         Log.d(TAG,"Pause method");
-        timer.cancel();
+        if (timer!=null) timer.cancel();
         timer=null;
         //If mRecorder is not recording, then it is not initialized which is
         //what we are checking here.
@@ -96,6 +110,21 @@ public class MainController {
         //getSignal
         //if signal has pitches
         //display signal fundamental frequency, note
+    }
+
+    public void loadSettings(Context context) {
+        SharedPreferences mPrefs = context.getSharedPreferences(Settings.NAME, Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = mPrefs.getString("NAME", "EMPTY");
+        if(json.equals("EMPTY")) {
+            settings = new Settings();
+            System.out.println("CALLED!!!!");
+        }
+        else {
+            settings = gson.fromJson(json, Settings.class);
+        }
+
+        converter.setSettings(settings);
     }
 
 }

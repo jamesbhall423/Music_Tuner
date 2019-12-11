@@ -48,10 +48,12 @@
         android:layout_marginBottom="72dp"
         android:onClick="loadAdvanced"
         android:text="Advanced"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/Training"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="invisible" />
 
     <Button
         android:id="@+id/Training"
@@ -60,10 +62,12 @@
         android:layout_marginBottom="72dp"
         android:onClick="loadTraining"
         android:text="Training"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/Main" />
+        app:layout_constraintStart_toEndOf="@+id/Main"
+        tools:visibility="invisible" />
 
     <TextView
         android:id="@+id/Title"

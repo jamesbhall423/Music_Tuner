@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements MainDisplay {
         Log.d(MAIN_ACTIVITY_TAG, "onCreate");
         super.onCreate(savedInstanceState);
         getMicrophonePermission(this,1);
+        controller.loadSettings(this);
         controller.setDisplay(this);
         if (ContextCompat.checkSelfPermission(this,Manifest.permission.RECORD_AUDIO)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -58,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements MainDisplay {
         letterNoteTextView = findViewById(R.id.letterNote);
         SharedPreferences sharedPref = this.getSharedPreferences(Settings.NAME, Context.MODE_PRIVATE);
         settings = gson.fromJson(sharedPref.getString(Settings.NAME, ""), Settings.class);
+        if (settings!=null) controller.getConverter().setSettings(settings);
+        else settings=controller.getConverter().getSettings();
 
             /*AudioDecoderThread sound = new AudioDecoderThread();
             sound.startPlay("/storage/emulated/0/Music/Test.m4a");*/
@@ -83,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements MainDisplay {
       //      }
       //  }).start();
         super.onDestroy();
+        System.exit(0);
     }
     @Override
     protected void onStart() {
