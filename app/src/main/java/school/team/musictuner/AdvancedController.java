@@ -106,17 +106,21 @@ public class AdvancedController {
      * If a recording is in progress, does nothing.
      */
     public synchronized void startRecording() {
-        running = true;
-        display.showStatus("Recording");
-        recording = data.startRecording(1000);
+        if(running == false) {
+            running = true;
+            display.showStatus("Recording");
+            recording = data.startRecording(1000);
+        }
     }
     /**
     * Ends and processes the recording of audio input.
      */
     public synchronized void endRecording() {
-        running = false;
-        data.endRecording(recording);
-        processRecording();
+        if(running == true) {
+            running = false;
+            data.endRecording(recording);
+            processRecording();
+        }
     }
 
     private void processRecording(){
