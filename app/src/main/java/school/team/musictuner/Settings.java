@@ -9,8 +9,8 @@ public class Settings implements Cloneable, Serializable {
     private static final long SerialVersionUID = 1L;
     public static final String NAME = "TunerSettings";
     private double sensitivity = 20;
-    private boolean removeOvertones;
-    private TuneSet tuneSet;
+    private boolean removeOvertones=false;
+    private TuneSet tuneSet = TuneSet.STANDARD;
     /**
     * Sets the threshold for recognizing pitches.
      */

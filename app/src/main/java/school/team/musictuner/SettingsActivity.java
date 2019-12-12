@@ -30,7 +30,9 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         Intent intent = getIntent();
-        settings = (Settings) intent.getSerializableExtra(SETTINGS);
+        //settings = (Settings) intent.getSerializableExtra(SETTINGS);
+        settings = MainController.settings;
+        ((TextView) findViewById(R.id.thresholdInput)).setText(Double.valueOf(settings.getSensitivity()).toString());
     }
     @Override
     protected void onStop() {

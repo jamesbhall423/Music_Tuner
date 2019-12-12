@@ -27,7 +27,7 @@ public class MainController {
     private MainDisplay mainDisplay;
     private Converter converter;
     private MediaRecorder mRecorder = null;
-    private Settings settings;
+    public static Settings settings;
 
     public void setDisplay(MainDisplay display) {
         Log.d(TAG,"set display "+display);
@@ -61,7 +61,7 @@ public class MainController {
         Log.d(TAG,"Settings Display Launch");
         pause();
         final Intent intentLoad = new Intent(context, SettingsActivity.class);
-        intentLoad.putExtra(SETTINGS, settings);
+        //intentLoad.putExtra(SETTINGS, settings);
         mainDisplay.runOnUiThread(new Runnable(){ public void run() {context.startActivity(intentLoad);}});
     }
     /**
