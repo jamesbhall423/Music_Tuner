@@ -116,9 +116,9 @@ public class MainController {
         Sound sound = new Sound(0.5);
         Signal signal = converter.getSignal(sound, 0, (int) 0.5);
         double frequencies = signal.getFundamentalFrequency();
-        if(frequencies < 100)
+        if(signal.frequencyThere())
         {
-
+            
         }
     }
 

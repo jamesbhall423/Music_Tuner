@@ -27,6 +27,20 @@ public class Signal implements Cloneable, Serializable {
     * The frequencies, sorted from lowest to highest.
      */
     public final SortedSet<Pitch> frequencies;
+
+    /**
+     * Seeing if there is any frequencies in the current SortedSet
+     * @return
+     */
+    public Boolean frequencyThere() {
+        Iterator<Pitch> it = frequencies.iterator();
+
+        if(it == null)
+            return false;
+        else
+            return true;
+    }
+
     public Signal() {
         frequencies = new TreeSet<Pitch>();
     }
