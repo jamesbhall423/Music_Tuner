@@ -10,8 +10,10 @@ import android.media.MediaRecorder;
 import com.google.gson.Gson;
 
 import java.io.*;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.SortedSet;
 
 /**
 * The controller for the initial activity.
@@ -105,11 +107,19 @@ public class MainController {
             mRecorder = null;
         }*/
     }
+
     private void doRecording() {
         // create Sound from audio Sound(time) 0.5 seconds
         //getSignal
         //if signal has pitches
         //display signal fundamental frequency, note
+        Sound sound = new Sound(0.5);
+        Signal signal = converter.getSignal(sound, 0, (int) 0.5);
+        double frequencies = signal.getFundamentalFrequency();
+        if(frequencies < 100)
+        {
+
+        }
     }
 
     public void loadSettings(Context context) {
