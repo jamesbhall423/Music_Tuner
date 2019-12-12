@@ -25,10 +25,13 @@
         android:id="@+id/letterNote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="260dp"
         android:text="Note"
-        app:layout_constraintEnd_toEndOf="@+id/Note"
-        app:layout_constraintStart_toStartOf="@+id/Note"
-        tools:layout_editor_absoluteY="236dp" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Title" />
 
     <Button
         android:id="@+id/Settings"
@@ -75,7 +78,7 @@
         android:layout_height="45dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="39dp"
-        android:text="TextView"
+        android:text="Main Display"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
