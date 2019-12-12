@@ -32,13 +32,10 @@ public class Signal implements Cloneable, Serializable {
      * Seeing if there is any frequencies in the current SortedSet
      * @return
      */
-    public Boolean frequencyThere() {
+    public boolean frequencyThere() {
         Iterator<Pitch> it = frequencies.iterator();
 
-        if(it == null)
-            return false;
-        else
-            return true;
+        return it.hasNext();
     }
 
     public Signal() {
@@ -92,6 +89,21 @@ public class Signal implements Cloneable, Serializable {
         } catch (CloneNotSupportedException e) {
             throw new Error(e);
         }
+    }
+    public Pitch findPitch(double frequency) {
+        Pitch pf = new Pitch(frequency,0.0);
+        Pitch above = null;
+        Pitch below = null;
+        SortedSet<Pitch> headSet = frequencies.headSet(pf);
+        SortedSet<Pitch> tailSet = frequencies.tailSet(pf);
+        if (!headSet.isEmpty()) below=headSet.last();
+        if (!tailSet.isEmpty()) above=tailSet.first();
+        double dAbove = 1000000;
+        double dBelow = 1000000;
+        if (above!=null) dAbove=above.getFrequency()-frequency;
+        if (below!=null) dBelow=frequency-below.getFrequency();
+        if (dAbove<dBelow) return new Pitch(frequency,above.getAmplitude());
+        else return new Pitch(frequency, below.getAmplitude());
     }
 
     /**

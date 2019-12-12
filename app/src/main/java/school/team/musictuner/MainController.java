@@ -113,12 +113,18 @@ public class MainController {
         //getSignal
         //if signal has pitches
         //display signal fundamental frequency, note
-        Sound sound = new Sound(0.5);
-        Signal signal = converter.getSignal(sound, 0, (int) 0.5);
-        double frequencies = signal.getFundamentalFrequency();
+        Sound sound = new Sound(0.2);
+        Signal signal = converter.getSignal(sound);
         if(signal.frequencyThere())
         {
-            
+            double frequency = signal.getFundamentalFrequency();
+            final Pitch out = signal.findPitch(frequency);
+            final Note note = out.getNote(settings.getTuneSet());
+            mainDisplay.runOnUiThread(new Runnable() {
+                public void run() {
+                    mainDisplay.displayNote(out,note);
+                }
+            });
         }
     }
 
