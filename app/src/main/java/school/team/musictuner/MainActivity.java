@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements MainDisplay {
         NumberFormat formatter = new DecimalFormat("#0.0");
         double diff = (pitch.getFrequency()-note.frequency)*100/note.frequency;
 
-        letterNoteTextView.setText(note.toString()+" Val="+formatter.format(pitch.getFrequency())+"hz. Ideal="+formatter.format(note.frequency)+"hz. Diff="+formatter.format(diff)+"%");
+        letterNoteTextView.setText(note.toString()+"\n Val="+formatter.format(pitch.getFrequency())+"hz. \nIdeal="+formatter.format(note.frequency)+"hz. \nDiff="+formatter.format(diff)+"%");
 
 
     }
