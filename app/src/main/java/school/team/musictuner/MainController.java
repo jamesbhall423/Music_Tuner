@@ -27,6 +27,7 @@ public class MainController {
     private MainDisplay mainDisplay;
     private Converter converter;
     private MediaRecorder mRecorder = null;
+    private double amplitudeLast = 0.0;
     public static Settings settings;
 
     public void setDisplay(MainDisplay display) {
@@ -91,7 +92,7 @@ public class MainController {
                 if (timer==null) run.cancel();
                 doRecording();
             }
-        },0L,250L);
+        },0L,1000L);
     }
     /**
     * Ends the thread that listens to audio.
@@ -120,11 +121,16 @@ public class MainController {
             double frequency = signal.getFundamentalFrequency();
             final Pitch out = signal.findPitch(frequency);
             final Note note = out.getNote(settings.getTuneSet());
-            mainDisplay.runOnUiThread(new Runnable() {
-                public void run() {
-                    mainDisplay.displayNote(out,note);
-                }
-            });
+            amplitudeLast*=0.7;
+            if (out.getAmplitude()>amplitudeLast&&note!=null) {
+                amplitudeLast=out.getAmplitude();
+                mainDisplay.runOnUiThread(new Runnable() {
+                    public void run() {
+                        mainDisplay.displayNote(out,note);
+                    }
+                });
+            }
+
         }
     }
 
